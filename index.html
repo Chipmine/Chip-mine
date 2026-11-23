@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0B0D0C">
+  <title>Chip Main — Chip Dashboard</title>
+  <link rel="icon" type="image/jpeg" href="assets/logo.jpg">
+  <link rel="apple-touch-icon" href="assets/logo.jpg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="loginView" class="login-screen hidden">
+    <button class="theme-toggle" id="closeLogin" aria-label="Close" style="width:auto;padding:0 16px;font-size:14px;font-weight:700">Close</button>
+    <div class="login-card">
+      <div class="brand-mark"><img src="assets/logo.jpg" alt="Chip Main"></div>
+      <p class="eyebrow">WELCOME TO</p>
+      <h1>Chip Main</h1>
+      <p class="login-subtitle" id="authSubtitle">Sign in to continue</p>
+      <p id="authMsg" class="auth-msg"></p>
+      <div class="auth-tabs"><button type="button" class="auth-tab active" data-auth="email">Email</button><button type="button" class="auth-tab" data-auth="phone">Phone</button></div>
+      <label class="field" id="refField" hidden><input id="refCode" placeholder="Referral code (required to sign up)" maxlength="12" autocapitalize="characters" autocomplete="off"></label>
+      <form id="emailForm">
+        <label class="field" id="nameField" hidden><input id="regName" placeholder="Your name" autocomplete="name" maxlength="40"></label>
+        <label class="field"><input id="email" type="email" placeholder="Email" autocomplete="email" required></label>
+        <label class="field"><input id="password" type="password" placeholder="Password" autocomplete="current-password" minlength="6" required><button type="button" class="show-pass" id="showPass">Show</button></label>
+        <div class="login-options"><label><input type="checkbox" id="remember" checked> Remember Me</label><a href="#" id="forgotLink">Forgot Password?</a></div>
+        <button class="login-submit" type="submit" id="emailSubmit">Login</button>
+        <p class="auth-switch"><span id="switchText">New here?</span> <a href="#" id="switchMode">Create account</a></p>
+      </form>
+      <form id="phoneForm" class="hidden">
+        <label class="field"><input id="phone" type="tel" placeholder="+8801XXXXXXXXX" autocomplete="tel" required></label>
+        <label class="field hidden" id="codeField"><input id="otp" inputmode="numeric" maxlength="6" placeholder="6-digit code" autocomplete="one-time-code"></label>
+        <button class="login-submit" type="submit" id="phoneSubmit">Send Code</button>
+      </form>
+      <div id="recaptcha"></div>
+      <div class="or-line"><span>OR CONTINUE WITH</span></div>
+      <div class="social-login"><button type="button" id="googleBtn" aria-label="Continue with Google" style="width:auto;padding:0 22px">G &nbsp;Google</button></div>
+      <p class="login-footer">CHIPS • COMPANIES • TECH NEWS</p>
+    </div>
+  </div>
+
+  <div id="app" class="app-shell">
+    <aside class="sidebar">
+      <a class="side-brand" href="#" data-page="home"><span class="brand-icon"><img src="assets/logo.jpg" alt=""></span><span data-edit="brand">Chip Main</span></a>
+      <div class="side-user"><div class="avatar">A</div><div><b>Welcome back</b><small id="sideUser">Member</small></div></div>
+      <nav class="side-nav">
+        <button class="nav-link active" data-page="home">Home</button>
+        <button class="nav-link" data-page="levels">CHIP Level</button>
+        <button class="nav-link" data-page="mining">My Mining</button>
+        <button class="nav-link" data-page="market">Market</button>
+        <button class="nav-link" data-page="profile">My Profile</button>
+        <button class="nav-link hidden" id="sideLogout">Log Out</button>
+      </nav>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-icon"><img src="assets/logo.jpg" alt=""></span><b data-edit="brand">Chip Main</b></div>
+        <div class="top-earning">Today's Earnings <strong id="topEarnings">0.0000 APT</strong></div>
+        <div class="top-actions"><button class="outline-btn" id="topLogin">Login</button><button class="outline-btn hidden" id="topLogout">Logout</button><button class="icon-btn" id="topProfile" title="Profile">Me</button></div>
+      </header>
+
+      <section class="page active" id="page-home">
+        <div class="hero-banner">
+          <div class="hero-copy"><span class="eyebrow">DIGITAL ASSETS • CHIP ECOSYSTEM</span><h1 data-edit="heroTitle">Explore the Future of Digital Assets</h1><p data-edit="heroText">Discover collections, explore levels and manage your dashboard in one place.</p><button class="primary-btn" data-go="levels">Start Trading</button></div>
+          <div class="hero-art"><div class="orb orb-one"></div><div class="orb orb-two"></div><span class="float-tag">CHIP / WEB3</span></div>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card"><div><small>Covered Countries</small><strong data-edit="countries">0</strong></div></article>
+          <article class="stat-card"><div><small>Extracted Earnings</small><strong>0.00 <small>APT</small></strong></div></article>
+          <article class="stat-card"><div><small>Registered Users</small><strong data-edit="registered">0</strong></div></article>
+          <article class="stat-card"><div><small>Commission Issued</small><strong>0.00 <small>APT</small></strong></div></article>
+        </div>
+
+        <div class="quick-actions">
+          <button class="action-card" data-action="Recharge"><b>Recharge</b></button>
+          <button class="action-card" data-action="Withdraw"><b>Withdraw</b></button>
+          <button class="action-card" data-go="profile"><b>Team</b></button>
+        </div>
+
+        <div class="content-card"><div class="section-heading"><div><span class="eyebrow">ACTIVE MINING</span><h2>My Mining</h2></div><div style="display:flex;gap:8px"><button class="outline-btn" data-go="mining">View all</button><button class="outline-btn" data-go="levels">Buy a chip</button></div></div><div id="miningList" class="req-list"></div></div>
+
+        <div class="info-grid">
+          <article class="content-card"><div class="section-heading"><div><span class="eyebrow">LEARN & DISCOVER</span><h2>What is CHIP?</h2></div></div><p>A CHIP is a unique digital collectible stored on the blockchain. CHIPs can represent digital art, collectibles, membership and other records of ownership.</p><a class="text-link" href="#market" data-go="market">Explore the market</a></article>
+          <article class="content-card about-card"><div class="section-heading"><div><span class="eyebrow">OUR STORY</span><h2>About Us</h2></div></div><p data-edit="aboutText">Discover digital collectibles, explore levels and manage your account in one place.</p><div class="chip-grid" id="chipGrid"></div></article>
+        </div>
+
+        <section class="content-card feature-section"><div class="section-heading"><div><span class="eyebrow">PLATFORM BENEFITS</span><h2>Explore the World of CHIPs</h2></div></div><div class="feature-grid"><div class="feature-item"><div><h3>Reliable Security</h3><p>Use trusted security practices and protect your digital assets with care.</p></div></div><div class="feature-item"><div><h3>24×7 Customer Support</h3><p>Support information and help resources can be customized for your platform.</p></div></div><div class="feature-item"><div><h3>Digital Collectibles</h3><p>Showcase unique artwork and collections in a clean, responsive layout.</p></div></div></div></section>
+        <div class="partner-strip"><span>BITPAY</span><span>CYBAVO</span><span>GNOSIS SAFE</span><span>KEYRING PRO</span><span>LEDGER</span><span>MATH WALLET</span><span>METAMASK</span><span>SafePal</span><span>WalletConnect</span><span>OpenSea</span></div>
+      </section>
+
+      <section class="page" id="page-levels">
+        <div class="page-title"><div><span class="eyebrow">COLLECT • UPGRADE • EXPLORE</span><h1>CHIP Level</h1></div><button class="outline-btn" id="copyAccount">Copy Account ID</button></div>
+        <div class="balance-row"><div><small>Account Total</small><strong data-bind="total">0.00</strong><em>APT</em></div><div><small>Frozen Amount</small><strong data-bind="frozen">0.00</strong><em>APT</em></div><div><small>Today's Earnings</small><strong data-bind="todayEarnings">0.0000</strong><em>APT</em></div></div>
+        <div class="level-list" id="levelList">
+          <article class="level-card"><div class="level-info"><h2>Level 1</h2><p>Normal • 30.00 – 499.99 APT</p><a href="#" data-level="1">Click to enter</a></div></article>
+          <article class="level-card"><div class="level-info"><h2>Level 2</h2><p>Rare • 500.00 – 4,999.99 APT</p><a href="#" data-level="2">Click to enter</a></div></article>
+          <article class="level-card"><div class="level-info"><h2>Level 3</h2><p>Epic • 5,000.00 – 49,999.99 APT</p><a href="#" data-level="3">Click to enter</a></div></article>
+          <article class="level-card"><div class="level-info"><h2>Level 4</h2><p>Mythic • 50,000.00 – 499,999.99 APT</p><a href="#" data-level="4">Click to enter</a></div></article>
+          <article class="level-card"><div class="level-info"><h2>Level 5</h2><p>Legend • 500,000.00 – 99,999,999.99 APT</p><a href="#" data-level="5">Click to enter</a></div></article>
+        </div>
+      </section>
+
+      <section class="page" id="page-level">
+        <div class="page-title"><div><span class="eyebrow" id="levelEyebrow">CHIP LEVEL</span><h1 id="levelTitle">Level</h1></div><button class="outline-btn" id="levelBack">Back</button></div>
+        <div class="content-card level-brief" id="levelBrief"></div>
+        <div class="level-items" id="levelItems"></div>
+      </section>
+
+      <section class="page" id="page-item">
+        <div class="page-title"><div><span class="eyebrow">CHIP DETAILS</span><h1 id="itemTitle">Item</h1></div><button class="outline-btn" id="itemBack">Back</button></div>
+        <div id="itemBody"></div>
+      </section>
+
+      <section class="page" id="page-market">
+        <div class="page-title"><div><span class="eyebrow">DISCOVER COLLECTIONS</span><h1>Chip Market</h1></div></div>
+        <div class="market-tabs"><button class="tab-btn selected" data-tab="ranking">Overall Ranking</button><button class="tab-btn" data-tab="favorites">My Favorites <span id="favCount">0</span></button></div>
+        <div class="table-wrap"><table><thead><tr><th>Rank</th><th>Chip</th><th>Name / Company</th><th>Category</th><th></th></tr></thead><tbody id="marketRows"></tbody></table></div>
+      </section>
+
+      <section class="page" id="page-tasks">
+        <div class="page-title"><div><span class="eyebrow">DAILY ACTIVITY</span><h1>Tasks</h1></div></div>
+        <div class="content-card task-summary"><div><small>Completed Tasks</small><strong id="taskCount">0 / 4</strong></div><div class="task-progress"><span id="taskProgress"></span></div></div>
+        <div class="task-list">
+          <article class="task-item"><div><b>Daily Check-in</b><small>Visit the platform today</small></div><button data-task="0">Claim</button></article>
+          <article class="task-item"><div><b>Explore the Market</b><small>Browse CHIP collections</small></div><button data-task="1">Claim</button></article>
+          <article class="task-item"><div><b>Invite a Friend</b><small>Share your referral page</small></div><button data-task="2">Claim</button></article>
+          <article class="task-item"><div><b>Explore CHIP Levels</b><small>View available level cards</small></div><button data-task="3">Claim</button></article>
+        </div>
+      </section>
+
+      <section class="page" id="page-withdraw">
+        <div class="page-title"><div><span class="eyebrow">ACCOUNT ACTION</span><h1>Withdraw</h1></div></div>
+        <p class="kyc-notice hidden" data-kyc-notice>Identity verification is required to recharge, withdraw, trade and use referrals. <a href="#" data-action="Verify">Verify now</a></p>
+        <div class="content-card withdraw-card">
+          <div class="withdraw-balance"><small>Withdrawable (profit)</small><strong><span data-bind="withdrawable">0.00</span> <em>APT</em></strong></div>
+          <div class="balance-row" style="margin:14px 0 4px">
+            <div><small>Recharge Amount</small><strong data-bind="recharge">0.00</strong><em>APT</em></div>
+            <div><small>Withdraw Amount</small><strong data-bind="withdrawn">0.00</strong><em>APT</em></div>
+            <div><small>Total Balance</small><strong data-bind="balance">0.00</strong><em>APT</em></div>
+          </div>
+          <label class="form-label">Amount (APT)</label>
+          <div class="share-pick" id="wdPresets">
+            <button type="button" class="share-opt" data-wd="10">10</button>
+            <button type="button" class="share-opt" data-wd="30">30</button>
+            <button type="button" class="share-opt" data-wd="50">50</button>
+            <button type="button" class="share-opt" data-wd="100">100</button>
+            <button type="button" class="share-opt" data-wd="200">200</button>
+            <button type="button" class="share-opt" data-wd="500">500</button>
+          </div>
+          <label class="form-label">Payout method</label>
+          <div class="term-pick two" id="wdMethods">
+            <button type="button" class="term-opt selected" data-wd-method="instant"><b>Instant</b><small>3–5 hours • 15% fee</small></button>
+            <button type="button" class="term-opt" data-wd-method="working"><b>Working Day</b><small>15 days • 7% fee</small></button>
+          </div>
+          <div class="wd-summary" id="wdSummary"></div>
+          <label class="form-label" for="withdrawAddress">Wallet address</label>
+          <input class="standard-input" id="withdrawAddress" type="text" placeholder="Enter wallet address">
+          <label class="form-label" for="withdrawPin">Payment password</label>
+          <input class="standard-input" id="withdrawPin" type="password" inputmode="numeric" maxlength="6" placeholder="Payment password">
+          <button class="primary-btn full-btn" id="withdrawPreview">Submit Withdrawal Request</button>
+          <p class="form-hint" id="withdrawHint">Withdrawals are reviewed before they are sent.</p>
+        </div>
+        <div class="content-card" style="margin-top:14px"><h2>Recent Requests</h2><div id="withdrawList" class="req-list"></div></div>
+      </section>
+
+      <section class="page" id="page-friends">
+        <div class="page-title"><div><span class="eyebrow">COMMUNITY</span><h1>Friends</h1></div></div>
+        <p class="kyc-notice hidden" data-kyc-notice>Identity verification is required to recharge, withdraw, trade and use referrals. <a href="#" data-action="Verify">Verify now</a></p>
+        <div class="content-card referral-card"><h2>Invite your friends</h2><p>Share your referral code and keep your community connected.</p><div class="referral-code"><strong id="referralCode">—</strong><button id="copyReferral">Copy</button></div></div>
+        <div class="stats-grid friends-stats"><article class="stat-card"><div><small>Total Friends</small><strong data-bind="friendCount">0</strong></div></article><article class="stat-card"><div><small>Team Revenue</small><strong><span data-bind="inviteRevenue">0.00</span> <small>APT</small></strong></div></article></div>
+        <div class="content-card"><h2>My Team</h2><div id="teamList" class="req-list"></div></div>
+      </section>
+
+      <section class="page" id="page-profile">
+        <div class="page-title"><div><span class="eyebrow">ACCOUNT CENTER</span><h1>My Profile</h1></div><button class="outline-btn" data-action="Edit Profile">Edit Profile</button></div>
+        <div class="profile-banner"><div class="profile-avatar">A</div><div><h2 id="profileName">Chip Main</h2><p>Member ID: <b id="accountId">—</b> <button class="copy-mini" id="copyId">Copy</button></p><span class="member-tag" id="memberTag">UNVERIFIED</span></div></div>
+        <div class="profile-balance"><div><small>Total Funds</small><strong><span data-bind="total">0.00</span> <em>APT</em></strong></div><div><small>Available Amount</small><strong><span data-bind="withdrawable">0.00</span> <em>APT</em></strong></div><div><small>Frozen Amount</small><strong><span data-bind="frozen">0.00</span> <em>APT</em></strong></div></div>
+        <div class="revenue-grid"><div class="revenue-card pink"><small>Total Revenue</small><strong><span data-bind="totalRevenue">0.00</span> APT</strong></div><div class="revenue-card blue"><small>Invitation Revenue</small><strong><span data-bind="inviteRevenue">0.00</span> APT</strong></div><div class="revenue-card violet"><small>Today's Earnings</small><strong><span data-bind="todayEarnings">0.0000</span> APT</strong></div><div class="revenue-card teal"><small>CHIPs are continuously earning</small><strong>0 CHIPs</strong></div></div>
+        <div class="profile-menu">
+          <button data-action="Verify" id="verifyBtn">Verify Identity <small class="vtag none" id="verifyTag">Not verified</small></button>
+          <button id="loginBtn">Login / Sign Up</button>
+          <button id="logoutBtn" class="hidden">Log Out</button>
+          <button data-action="History">History</button>
+          <button data-action="Spin the Wheel">Spin the Wheel</button><button data-action="Sign In Task">Sign In Task</button><button data-action="Points Mall">Points Mall</button><button data-action="Announcement">Announcement</button><button data-action="Shipping Address">Shipping Address</button><button data-action="Language">Language</button><button data-action="Recommend & Share">Recommend & Share</button><button data-action="Team">Team</button><button data-action="Message">Message</button><button data-action="Change Password">Change Password</button><button data-action="Change Payment Password">Change Payment Password</button>
+        </div>
+      </section>
+      <section class="page" id="page-chip">
+        <div class="page-title"><div><span class="eyebrow">CHIP DETAILS</span><h1 id="chipTitle">Chip</h1></div><button class="outline-btn" id="chipBack">Back</button></div>
+        <div class="content-card chip-detail" id="chipDetail"></div>
+      </section>
+      <section class="page" id="page-mining">
+        <div class="page-title"><div><span class="eyebrow">SHARES • MINING • PROGRESS</span><h1>My Mining</h1></div><button class="outline-btn" data-go="levels">Buy shares</button></div>
+        <div class="mine-stats stats-grid"><article class="stat-card"><div><small>Active</small><strong id="mineActive">0</strong></div></article><article class="stat-card"><div><small>Total Shares</small><strong id="mineShares">0.00</strong></div></article><article class="stat-card"><div><small>Total Profit</small><strong><span id="mineProfit">0.00</span> <small>APT</small></strong></div></article></div>
+        <div id="miningPageList" class="req-list"></div>
+      </section>
+      <section class="page" id="page-history">
+        <div class="page-title"><div><span class="eyebrow">ACCOUNT ACTIVITY</span><h1>History</h1></div></div>
+        <div class="market-tabs">
+          <button class="tab-btn selected" data-hist="recharge">Recharge</button>
+          <button class="tab-btn" data-hist="profit">Profit</button>
+          <button class="tab-btn" data-hist="withdraw">Withdraw</button>
+          <button class="tab-btn" data-hist="others">Others</button>
+        </div>
+        <div class="content-card" style="border-radius:0 0 14px 14px"><div id="historyList" class="req-list"></div></div>
+      </section>
+      <footer class="site-footer">© <span id="year"></span> <span data-edit="brand">Chip Main</span>. All rights reserved.</footer>
+    </main>
+  </div>
+
+  <nav class="mobile-nav">
+    <button class="active" data-page="home"><i data-lucide="pickaxe"></i><small>Mining</small></button>
+    <button data-page="withdraw"><i data-lucide="wallet"></i><small>Withdraw</small></button>
+    <button data-page="friends"><i data-lucide="users"></i><small>Friends</small></button>
+    <button data-page="market"><i data-lucide="trophy"></i><small>Rank</small></button>
+    <button data-page="profile"><i data-lucide="user-round"></i><small>Profile</small></button>
+  </nav>
+  <div id="sheet" class="sheet hidden"><div class="sheet-card"><div class="sheet-head"><h2 id="sheetTitle"></h2><button id="sheetClose" aria-label="Close" style="width:auto;padding:0 12px;font-size:12px;font-weight:700">Close</button></div><div id="sheetBody"></div></div></div>
+  <div id="toast" class="toast"></div>
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

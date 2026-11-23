@@ -1,0 +1,98 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function me() { return get(/databases/$(database)/documents/users/$(request.auth.uid)).data; }
+    function verified(u) { return exists(/databases/$(database)/documents/kyc/$(u)) && get(/databases/$(database)/documents/kyc/$(u)).data.status == 'approved'; }
+    // Admin panel roles: create doc admins/<uid> with role "owner" (everything) or "staff" (KYC, messages, content)
+    function isAdmin() { return signedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid)); }
+    function isOwner() { return isAdmin() && get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.role == 'owner'; }
+    function mine() { return signedIn() && resource.data.uid == request.auth.uid; }
+    function creating() { return signedIn() && verified(request.auth.uid) && !me().get('blocked', false)
+      && request.resource.data.uid == request.auth.uid && request.resource.data.status == 'pending' && request.resource.data.createdAt == request.time; }
+
+    match /admins/{id} {
+      allow read: if signedIn() && (request.auth.uid == id || isOwner());
+      allow write: if isOwner();
+    }
+    match /settings/{id}      { allow read: if true; allow write: if isOwner(); }
+    match /announcements/{id} { allow read: if true; allow write: if isAdmin(); }
+    match /mall/{id}          { allow read: if true; allow write: if isAdmin(); }
+
+    match /users/{userId} {
+      allow read: if signedIn() && (request.auth.uid == userId || isAdmin());
+      allow create: if signedIn() && request.auth.uid == userId
+        && (isOwner() || (request.resource.data.referredBy is string
+          && request.resource.data.referredBy != request.auth.uid
+          && exists(/databases/$(database)/documents/users/$(request.resource.data.referredBy))))
+        && request.resource.data.balance == 0 && request.resource.data.frozen == 0 && request.resource.data.points == 0
+        && request.resource.data.totalRevenue == 0 && request.resource.data.inviteRevenue == 0
+        && request.resource.data.todayEarnings == 0 && request.resource.data.nftCount == 0;
+      allow update: if (signedIn() && request.auth.uid == userId
+        && request.resource.data.balance >= 0 && request.resource.data.get('frozen', 0) >= 0 && request.resource.data.nftCount >= 0
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['name', 'address', 'payPinHash', 'balance', 'frozen', 'nftCount', 'totalRevenue', 'todayEarnings', 'referralCode', 'points', 'lastCheckin', 'spinCount', 'spinWindowStart', 'unlockedItems', 'unlockedLevel'])) || isOwner();
+    }
+    match /referralCodes/{code} {
+      allow read: if signedIn();
+      allow create: if signedIn() && request.resource.data.uid == request.auth.uid;
+    }
+    match /referrals/{childUid} {
+      allow read: if signedIn() && (resource.data.referrerUid == request.auth.uid || isAdmin());
+      allow create: if signedIn() && childUid == request.auth.uid
+        && request.resource.data.referrerUid is string
+        && exists(/databases/$(database)/documents/users/$(request.resource.data.referrerUid));
+    }
+    match /kyc/{userId} {
+      allow read: if signedIn() && (request.auth.uid == userId || isAdmin());
+      allow create: if signedIn() && request.auth.uid == userId && request.resource.data.uid == userId
+        && request.resource.data.status == 'pending' && request.resource.data.country in ['Bangladesh', 'India', 'Nepal'];
+      allow update: if (signedIn() && request.auth.uid == userId && resource.data.status == 'rejected'
+        && request.resource.data.status == 'pending' && request.resource.data.uid == userId) || isAdmin();
+    }
+    match /minings/{id} {
+      allow read: if mine() || isAdmin();
+      allow create: if signedIn() && request.resource.data.uid == request.auth.uid && verified(request.auth.uid)
+        && request.resource.data.status == 'mining' && request.resource.data.amount > 0 && request.resource.data.rate > 0
+        && request.resource.data.term in [72, 168, 240, 336, 720] && request.resource.data.createdAt == request.time;
+      allow update: if isAdmin() || (signedIn() && resource.data.uid == request.auth.uid
+        && resource.data.status == 'mining' && request.resource.data.status == 'done');
+    }
+    match /deposits/{id} {
+      allow read: if mine() || isAdmin();
+      allow create: if creating() && request.resource.data.amount > 0;
+      allow update: if isOwner();
+    }
+    match /withdrawals/{id} {
+      allow read: if mine() || isAdmin();
+      allow create: if creating() && request.resource.data.amount > 0
+        && request.resource.data.amount <= me().totalRevenue
+        && request.resource.data.get('debit', 0) <= me().balance
+        && ('payPinHash' in me()) && request.resource.data.pinHash == me().payPinHash;
+      allow update: if isOwner();
+    }
+    match /redemptions/{id} {
+      allow read: if mine() || isAdmin();
+      allow create: if creating() && request.resource.data.points <= me().points;
+      allow update: if isOwner();
+    }
+    match /levelRequests/{id} {
+      allow read: if mine() || isAdmin();
+      allow create: if creating();
+      allow update: if isOwner();
+    }
+    match /messages/{id} {
+      allow read: if mine() || isAdmin();
+      allow create: if (signedIn() && request.resource.data.uid == request.auth.uid && request.resource.data.from == 'user'
+        && request.resource.data.createdAt == request.time && request.resource.data.text is string && request.resource.data.text.size() <= 1000)
+        || (isAdmin() && request.resource.data.from == 'admin');
+    }
+    match /ledger/{id} {
+      allow read: if (signedIn() && resource.data.uid == request.auth.uid) || isAdmin();
+      allow create: if isOwner();
+    }
+    match /auditLogs/{id} {
+      allow read: if isOwner();
+      allow create: if isAdmin() && request.resource.data.by == request.auth.uid;
+    }
+  }
+}
