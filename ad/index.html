@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0b102b">
+<title>Chip Mine — Admin</title>
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<div id="login" class="screen hidden">
+  <form class="lcard" id="loginForm">
+    <div class="logo">✦</div><h1>Chip Mine Admin</h1><p class="sub">Authorized staff only</p>
+    <input id="email" type="email" placeholder="Email" autocomplete="email" required>
+    <input id="password" type="password" placeholder="Password" autocomplete="current-password" required>
+    <p id="loginMsg" class="err"></p>
+    <button class="btn primary full" type="submit">Sign in</button>
+    <button class="btn full" type="button" id="googleBtn">Continue with Google</button>
+    <a href="#" id="forgot" class="link">Forgot password?</a>
+  </form>
+</div>
+<div id="denied" class="screen hidden">
+  <div class="lcard"><div class="logo">⛔</div><h1>No admin access</h1>
+    <p class="sub">This account is not an admin yet. Give this UID to the owner, or add it in Firestore: <code>admins/&lt;UID&gt;</code> with field <code>role</code> = <code>owner</code> or <code>staff</code>.</p>
+    <code id="uidBox" class="uid"></code>
+    <button class="btn full" id="copyUid">Copy UID</button><button class="btn full" id="deniedOut">Sign out</button></div>
+</div>
+<div id="shell" class="shell hidden">
+  <div id="backdrop"></div>
+  <aside id="drawer"><div class="brand"><span class="logo sm">✦</span><div><b>Chip Mine</b><small>Admin panel</small></div></div><nav id="nav"></nav>
+    <div class="me"><small id="meBox"></small><button class="btn full" id="outBtn">Sign out</button></div></aside>
+  <div class="main"><header><button id="menuBtn" class="iconbtn" aria-label="Menu">☰</button><h2 id="pageTitle"></h2><span id="roleTag" class="tag"></span></header>
+    <main id="view"></main></div>
+</div>
+<div id="toast"></div>
+<script type="module" src="admin.js"></script>
+</body>
+</html>
