@@ -1,6 +1,6 @@
 // ================= EDIT YOUR WEBSITE CONTENT HERE =================
 const SITE_CONFIG = {
-  brand: "Chip Main",
+  brand: "Chip Mine",
   heroTitle: "Explore the Future of Digital Assets",
   heroText: "Discover collections, explore levels and manage your account in one place.",
   countries: "0",
@@ -8,7 +8,7 @@ const SITE_CONFIG = {
   aboutText: "Discover digital collectibles, explore levels and manage your account in one place.",
   accountId: "—",
   userName: "Guest",
-  todayEarnings: "0.0000 APT"
+  todayEarnings: "0.0000 USDT"
 };
 
 // Chip catalog: [name, company, category, image file, model/family, description]. Images live in assets/chips.
@@ -44,46 +44,36 @@ const COLLECTIONS = CHIPS.map(([name, company, category, img, model, desc]) => (
 
 // Chip Level catalog. unlock = minimum balance to open the level. term = the level's single fixed
 // mining duration. rate = commission % range [min,max]; an item may override with its own `rate`.
-// fee = one-time APT unlock fee that makes that item buyable for the user.
+// fee = one-time USDT unlock fee that makes that item buyable for the user.
 const LV_IMG = n => `assets/chips/${n}.jpg`;
 const LEVELS = [
-  { id: 1, quality: "Normal", unlock: 1, term: { h: 72, label: "3 days" }, rate: [2, 5], items: [
-    { name: "Dimensity 8500", company: "MediaTek", img: "mediatek-dimensity-8500", val: 10000 },
-    { name: "Exynos 2400", company: "Samsung", img: "samsung-exynos-2400", val: 13750 },
-    { name: "Core Ultra 9 386H", company: "Intel", img: "intel-core-ultra-9-386h", val: 18200, fee: 2, rate: [3, 8] },
-    { name: "Snapdragon 8 Gen 5", company: "Qualcomm", img: "qualcomm-snapdragon-8-gen-5", val: 24600, fee: 2, rate: [3, 8] },
-    { name: "Google Tensor G5", company: "Google", img: "google-tensor-g5", val: 31500, fee: 2, rate: [3, 8] }
+  { id: 1, quality: "Normal", unlock: 1, term: { h: 72, label: "3 days" }, rate: [6, 10], items: [
+    { name: "Exynos 2400", company: "Samsung", img: "samsung-exynos-2400", val: 10000 },
+    { name: "Exynos 2500", company: "Samsung", img: "samsung-exynos-2500", val: 13750, fee: 2 },
+    { name: "Exynos 2600", company: "Samsung", img: "samsung-exynos-2600", val: 18200, fee: 2 }
   ] },
-  { id: 2, quality: "Rare", unlock: 30, term: { h: 168, label: "7 days" }, rate: [5, 7], items: [
-    { name: "Exynos 2500", company: "Samsung", img: "samsung-exynos-2500", val: 42000 },
-    { name: "Dimensity 9500", company: "MediaTek", img: "mediatek-dimensity-9500", val: 56000 },
-    { name: "Core Ultra 7 270K Plus", company: "Intel", img: "intel-core-ultra-7-270k", val: 74500 },
-    { name: "Google Tensor G6", company: "Google", img: "google-tensor-g6", val: 98000 },
-    { name: "Snapdragon 8 Elite Gen 5", company: "Qualcomm", img: "qualcomm-snapdragon-8-elite-gen-5", val: 132000 }
+  { id: 2, quality: "Rare", unlock: 30, term: { h: 168, label: "7 days" }, rate: [11, 18], items: [
+    { name: "Kirin 9010", company: "Huawei", img: "chipset-showcase-1", val: 42000 },
+    { name: "Kirin 9020", company: "Huawei", img: "chipset-showcase-3", val: 56000, fee: 5 },
+    { name: "Kirin 9030", company: "Huawei", img: "chipset-showcase-5", val: 74500, fee: 5 }
   ] },
-  { id: 3, quality: "Epic", unlock: 80, term: { h: 240, label: "10 days" }, rate: [7, 14], items: [
-    { name: "Exynos 2600", company: "Samsung", img: "samsung-exynos-2600", val: 175000 },
-    { name: "Dimensity 9600M", company: "MediaTek", img: "mediatek-dimensity-9600m", val: 235000 },
-    { name: "Snapdragon 8 Elite Extreme", company: "Qualcomm", img: "qualcomm-snapdragon-8-elite-extreme", val: 310000 },
-    { name: "Apple A18 Pro", company: "Apple", img: "apple-a18-pro", val: 420000 },
-    { name: "Apple M6", company: "Apple", img: "apple-m6", val: 560000 }
+  { id: 3, quality: "Epic", unlock: 80, term: { h: 288, label: "12 days" }, rate: [19, 27], items: [
+    { name: "Apple A18 Pro", company: "Apple", img: "apple-a18-pro", val: 235000 },
+    { name: "Apple A20 Pro", company: "Apple", img: "apple-a20-pro", val: 420000, fee: 10 },
+    { name: "Apple M6", company: "Apple", img: "apple-m6", val: 560000, fee: 10 }
   ] },
-  { id: 4, quality: "Mythic", unlock: 400, term: { h: 336, label: "14 days" }, rate: [9, 19], items: [
-    { name: "Dimensity 9600 Pro", company: "MediaTek", img: "mediatek-dimensity-9600-pro", val: 720000 },
-    { name: "Apple A20 Pro", company: "Apple", img: "apple-a20-pro", val: 950000 },
-    { name: "Ryzen 7 9850X3D", company: "AMD", img: "amd-ryzen-7-9850x3d", val: 1250000 },
-    { name: "Ryzen 9 9900X3D", company: "AMD", img: "amd-ryzen-9-9900x3d", val: 1650000 },
-    { name: "Ryzen 9 9950X3D", company: "AMD", img: "amd-ryzen-9-9950x3d", val: 2150000 }
+  { id: 4, quality: "Mythic", unlock: 400, term: { h: 456, label: "19 days" }, rate: [28, 36], items: [
+    { name: "Dimensity 9500", company: "MediaTek", img: "mediatek-dimensity-9500", val: 720000 },
+    { name: "Dimensity 9600M", company: "MediaTek", img: "mediatek-dimensity-9600m", val: 950000, fee: 20 },
+    { name: "Dimensity 9600 Pro", company: "MediaTek", img: "mediatek-dimensity-9600-pro", val: 1250000, fee: 20 }
   ] },
-  { id: 5, quality: "Legend", unlock: 850, term: { h: 720, label: "30 days" }, rate: [25, 55], items: [
-    { name: "Blackwell B200", company: "NVIDIA", img: "nvidia-blackwell-b200", val: 2800000 },
-    { name: "Blackwell B300", company: "NVIDIA", img: "nvidia-blackwell-b300", val: 3700000 },
-    { name: "GB300 Grace Blackwell", company: "NVIDIA", img: "nvidia-gb300-grace-blackwell", val: 4900000 },
-    { name: "Blackwell Ultra", company: "NVIDIA", img: "chipset-showcase-1", val: 6500000 },
-    { name: "Grace Blackwell Superchip", company: "NVIDIA", img: "chipset-showcase-2", val: 8800000 }
+  { id: 5, quality: "Legend", unlock: 850, term: { h: 720, label: "30 days" }, rate: [33, 44], items: [
+    { name: "Snapdragon 8 Gen 5", company: "Qualcomm", img: "qualcomm-snapdragon-8-gen-5", val: 1650000 },
+    { name: "Snapdragon 8 Elite Gen 5", company: "Qualcomm", img: "qualcomm-snapdragon-8-elite-gen-5", val: 2150000, fee: 50 },
+    { name: "Snapdragon 8 Elite Extreme", company: "Qualcomm", img: "qualcomm-snapdragon-8-elite-extreme", val: 2800000, fee: 50 }
   ] }
 ];
-const levelRange = lv => { const v = lv.items.map(i => i.val); return `${money(Math.min(...v))} – ${money(Math.max(...v))} APT`; };
+const levelRange = lv => { const v = lv.items.map(i => i.val); return `${money(Math.min(...v))} – ${money(Math.max(...v))} USDT`; };
 const itemRate = (lv, it) => it.rate || lv.rate;
 const levelRate = lv => { const rs = lv.items.map(i => itemRate(lv, i)); return [Math.min(...rs.map(r => r[0])), Math.max(...rs.map(r => r[1]))]; };
 const isUnlockedItem = id => (profile.unlockedItems || []).includes(id) || justUnlocked.has(id);
@@ -102,7 +92,7 @@ function renderLevels() {
   $("#levelList").innerHTML = LEVELS.map(l => {
     const open = un >= l.id;
     return `<article class="level-card${open ? "" : " locked"}"${open ? ` data-level="${l.id}"` : ""}>
-      <div class="level-info"><h2>Level ${l.id}</h2><p>${open ? `${l.quality} • ${l.term.label} • ${levelRange(l)}` : `Locked • need ${l.unlock} APT balance`}</p><span class="level-enter">${open ? "Click to enter" : "Locked"}</span></div>
+      <div class="level-info"><h2>Level ${l.id}</h2><p>${open ? `${l.quality} • ${l.term.label} • ${levelRange(l)}` : `Locked • need ${l.unlock} USDT balance`}</p><span class="level-enter">${open ? "Click to enter" : "Locked"}</span></div>
       <span class="lock-badge">${open ? "" : "LOCKED"}</span></article>`;
   }).join("");
 }
@@ -111,18 +101,26 @@ function renderLevels() {
 const KYC_COUNTRY = "Bangladesh"; // fixed value stored with the KYC record (keeps Firestore rules working)
 const KYC_DOCS = ["National ID (NID)", "Passport", "Aadhaar Card"];
 const isVerified = () => kyc?.status === "approved";
-const BN = { "Mining":"মাইনিং","Withdraw":"উত্তোলন","Friends":"বন্ধু","Rank":"র‍্যাঙ্ক","Profile":"প্রোফাইল","Home":"হোম","Tasks":"টাস্ক","Recharge":"রিচার্জ","Team":"টিম","Market":"মার্কেট","Chip Market":"চিপ মার্কেট","My Profile":"আমার প্রোফাইল","CHIP Level":"চিপ লেভেল","Sign In Task":"সাইন ইন টাস্ক","Points Mall":"পয়েন্ট মল","Announcement":"ঘোষণা","Shipping Address":"ঠিকানা","Language":"ভাষা","Recommend & Share":"রেফার ও শেয়ার","Message":"মেসেজ","Change Password":"পাসওয়ার্ড পরিবর্তন","Change Payment Password":"পেমেন্ট পাসওয়ার্ড পরিবর্তন","Login / Sign Up":"লগইন / সাইন আপ","Log Out":"লগ আউট","Login":"লগইন","Available balance":"ব্যালেন্স","Amount":"পরিমাণ","Wallet address":"ওয়ালেট ঠিকানা","Recent Requests":"সাম্প্রতিক অনুরোধ","About Us":"আমাদের সম্পর্কে","Chip Details":"চিপের তথ্য","Invite your friends":"বন্ধুদের আমন্ত্রণ জানান","My Team":"আমার টিম","Total Friends":"মোট বন্ধু","Total Funds":"মোট অর্থ","Total Revenue":"মোট আয়","Today's Earnings":"আজকের আয়","Explore Levels":"লেভেল দেখুন","Edit Profile":"প্রোফাইল এডিট","Verify Identity":"পরিচয় যাচাই","Logout":"লগআউট" };
+const HI = { "Mining":"माइनिंग","Withdraw":"निकासी","Friends":"मित्र","Rank":"रैंक","Profile":"प्रोफ़ाइल","Home":"होम","Tasks":"कार्य","Recharge":"रीचार्ज","Team":"टीम","Market":"बाज़ार","Chip Market":"चिप बाज़ार","My Profile":"मेरी प्रोफ़ाइल","CHIP Level":"चिप स्तर","Sign In Task":"साइन इन कार्य","Points Mall":"पॉइंट्स मॉल","Announcement":"घोषणा","Shipping Address":"शिपिंग पता","Language":"भाषा","Recommend & Share":"सुझाव और साझा करें","Message":"संदेश","Change Password":"पासवर्ड बदलें","Change Payment Password":"भुगतान पासवर्ड बदलें","Login / Sign Up":"लॉगिन / साइन अप","Log Out":"लॉग आउट","Login":"लॉगिन","Available balance":"उपलब्ध बैलेंस","Amount":"राशि","Wallet address":"वॉलेट पता","Recent Requests":"हालिया अनुरोध","About Us":"हमारे बारे में","Chip Details":"चिप विवरण","Invite your friends":"अपने मित्रों को आमंत्रित करें","My Team":"मेरी टीम","Total Friends":"कुल मित्र","Total Funds":"कुल धन","Total Revenue":"कुल आय","Today's Earnings":"आज की कमाई","Explore Levels":"स्तर देखें","Edit Profile":"प्रोफ़ाइल संपादित करें","Verify Identity":"पहचान सत्यापित करें","Logout":"लॉग आउट" };
+const NE = { "Mining":"माइनिङ","Withdraw":"निकासी","Friends":"साथीहरू","Rank":"रैङ्क","Profile":"प्रोफाइल","Home":"गृहपृष्ठ","Tasks":"कार्यहरू","Recharge":"रिचार्ज","Team":"टोली","Market":"बजार","Chip Market":"चिप बजार","My Profile":"मेरो प्रोफाइल","CHIP Level":"चिप स्तर","Sign In Task":"साइन इन कार्य","Points Mall":"पोइन्ट मल","Announcement":"घोषणा","Shipping Address":"ढुवानी ठेगाना","Language":"भाषा","Recommend & Share":"सिफारिस र साझा गर्नुहोस्","Message":"सन्देश","Change Password":"पासवर्ड परिवर्तन","Change Payment Password":"भुक्तानी पासवर्ड परिवर्तन","Login / Sign Up":"लगइन / साइन अप","Log Out":"लगआउट","Login":"लगइन","Available balance":"उपलब्ध ब्यालेन्स","Amount":"रकम","Wallet address":"वालेट ठेगाना","Recent Requests":"हालका अनुरोधहरू","About Us":"हाम्रो बारेमा","Chip Details":"चिप विवरण","Invite your friends":"आफ्ना साथीहरूलाई निम्तो गर्नुहोस्","My Team":"मेरो टोली","Total Friends":"कुल साथीहरू","Total Funds":"कुल रकम","Total Revenue":"कुल आय","Today's Earnings":"आजको कमाई","Explore Levels":"स्तरहरू हेर्नुहोस्","Edit Profile":"प्रोफाइल सम्पादन","Verify Identity":"पहिचान प्रमाणित गर्नुहोस्","Logout":"लगआउट" };
+const AR = { "Mining":"التعدين","Withdraw":"سحب","Friends":"الأصدقاء","Rank":"الترتيب","Profile":"الملف الشخصي","Home":"الرئيسية","Tasks":"المهام","Recharge":"إعادة الشحن","Team":"الفريق","Market":"السوق","Chip Market":"سوق الرقائق","My Profile":"ملفي الشخصي","CHIP Level":"مستوى الرقاقة","Sign In Task":"مهمة تسجيل الدخول","Points Mall":"متجر النقاط","Announcement":"إعلان","Shipping Address":"عنوان الشحن","Language":"اللغة","Recommend & Share":"أوصِ وشارك","Message":"رسالة","Change Password":"تغيير كلمة المرور","Change Payment Password":"تغيير كلمة مرور الدفع","Login / Sign Up":"تسجيل الدخول / إنشاء حساب","Log Out":"تسجيل الخروج","Login":"تسجيل الدخول","Available balance":"الرصيد المتاح","Amount":"المبلغ","Wallet address":"عنوان المحفظة","Recent Requests":"الطلبات الأخيرة","About Us":"من نحن","Chip Details":"تفاصيل الرقاقة","Invite your friends":"ادعُ أصدقاءك","My Team":"فريقي","Total Friends":"إجمالي الأصدقاء","Total Funds":"إجمالي الأموال","Total Revenue":"إجمالي الإيرادات","Today's Earnings":"أرباح اليوم","Explore Levels":"استكشف المستويات","Edit Profile":"تعديل الملف الشخصي","Verify Identity":"تحقق من الهوية","Logout":"تسجيل الخروج" };
+const ZH = { "Mining":"挖矿","Withdraw":"提现","Friends":"好友","Rank":"排名","Profile":"个人资料","Home":"首页","Tasks":"任务","Recharge":"充值","Team":"团队","Market":"市场","Chip Market":"芯片市场","My Profile":"我的资料","CHIP Level":"芯片等级","Sign In Task":"签到任务","Points Mall":"积分商城","Announcement":"公告","Shipping Address":"收货地址","Language":"语言","Recommend & Share":"推荐并分享","Message":"消息","Change Password":"修改密码","Change Payment Password":"修改支付密码","Login / Sign Up":"登录 / 注册","Log Out":"退出登录","Login":"登录","Available balance":"可用余额","Amount":"金额","Wallet address":"钱包地址","Recent Requests":"最近请求","About Us":"关于我们","Chip Details":"芯片详情","Invite your friends":"邀请好友","My Team":"我的团队","Total Friends":"好友总数","Total Funds":"资金总额","Total Revenue":"总收入","Today's Earnings":"今日收益","Explore Levels":"探索等级","Edit Profile":"编辑资料","Verify Identity":"验证身份","Logout":"退出登录" };
+const LANGS = { en: null, hi: HI, ne: NE, ar: AR, zh: ZH };
+const LANG_DIR = { ar: "rtl" };
 const orig = new WeakMap();
 function applyLang() {
-  const bn = localStorage.getItem("cm_lang") === "bn";
+  const code = localStorage.getItem("cm_lang") || "en";
+  const dict = LANGS[code] || null;
+  document.documentElement.lang = code;
+  document.documentElement.dir = LANG_DIR[code] || "ltr";
   const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   let n;
   while ((n = w.nextNode())) {
     const p = n.parentElement;
     if (!p || /^(SCRIPT|STYLE|TEXTAREA)$/.test(p.tagName)) continue;
-    if (!orig.has(n)) { if (!BN[n.nodeValue.trim()]) continue; orig.set(n, n.nodeValue); }
+    if (!orig.has(n)) { if (!HI[n.nodeValue.trim()]) continue; orig.set(n, n.nodeValue); }
     const o = orig.get(n), t = o.trim();
-    n.nodeValue = bn && BN[t] ? o.replace(t, BN[t]) : o;
+    n.nodeValue = dict && dict[t] ? o.replace(t, dict[t]) : o;
   }
 }
 
@@ -137,7 +135,7 @@ const sha = async s => [...new Uint8Array(await crypto.subtle.digest("SHA-256", 
 
 let kyc = null, fb = null, user = null, profile = {}, site = { depositAddress: "", minWithdraw: 0 };
 let lastWithdraw = [], rechargeTotal = 0, histTab = "recharge", wdMethod = "instant", wdAmount = 0;
-let histData = { recharge: [], profit: [], withdraw: [], others: [] }, othersA = [], othersB = [];
+let histData = { recharge: [], profit: [], withdraw: [], others: [] }, othersA = [], othersB = [], mineRows = [];
 const justUnlocked = new Set();
 const WD_METHODS = { instant: { label: "Instant", fee: 0.15, eta: "within 3–5 hours" }, working: { label: "Working Day", fee: 0.0667, eta: "within 15 working days" } };
 let subs = [], sheetSubs = [], activeTab = "ranking", currentPage = "home", navStack = [];
@@ -224,11 +222,10 @@ const closeLogin = () => loginView.classList.add("hidden");
 const authError = e => ({
   "auth/invalid-credential": "Wrong email or password", "auth/user-not-found": "No account found", "auth/wrong-password": "Wrong email or password",
   "auth/email-already-in-use": "Email already registered", "auth/weak-password": "Password must be at least 6 characters", "auth/invalid-email": "Invalid email",
-  "auth/invalid-phone-number": "Invalid phone number (use +880...)", "auth/invalid-verification-code": "Wrong code", "auth/code-expired": "Code expired, send again",
-  "auth/too-many-requests": "Too many attempts, try later", "auth/popup-closed-by-user": "Sign-in cancelled", "auth/cancelled-popup-request": "Sign-in cancelled",
+  "auth/too-many-requests": "Too many attempts, try later",
   "auth/network-request-failed": "Network error", "auth/operation-not-allowed": "This login method is not enabled in Firebase Console",
-  "auth/unauthorized-domain": "This domain is not authorized in Firebase Console", "auth/captcha-check-failed": "reCAPTCHA failed, try again",
-  "auth/missing-phone-number": "Enter your phone number", "auth/billing-not-enabled": "Phone login needs Firebase billing (Blaze plan)", "permission-denied": "Permission denied (check Firestore rules)"
+  "auth/unauthorized-domain": "This domain is not authorized in Firebase Console",
+  "permission-denied": "Permission denied (check Firestore rules)"
 }[e.code] || e.message || "Something went wrong");
 function setAuthMsg(m) { const el = $("#authMsg"); el.textContent = m || ""; if (m) showToast(m); }
 async function run(fn, btn) {
@@ -254,18 +251,11 @@ $("#loginBtn").addEventListener("click", openLogin);
 $("#closeLogin").addEventListener("click", closeLogin);
 ["#logoutBtn", "#topLogout", "#sideLogout"].forEach(id => $(id).addEventListener("click", () => run(async () => { await fb.logout(); closeSheet(); goToPage("home"); showToast("Logged out"); })));
 $("#showPass").addEventListener("click", () => { const i = $("#password"); i.type = i.type === "password" ? "text" : "password"; });
-$$(".auth-tab").forEach(tab => tab.addEventListener("click", () => {
-  $$(".auth-tab").forEach(t => t.classList.toggle("active", t === tab));
-  const email = tab.dataset.auth === "email";
-  $("#emailForm").classList.toggle("hidden", !email);
-  $("#phoneForm").classList.toggle("hidden", email);
-  $("#refField").hidden = !(email && signupMode);
-  setAuthMsg("");
-}));
 $("#switchMode").addEventListener("click", e => {
   e.preventDefault(); signupMode = !signupMode;
   $("#nameField").hidden = !signupMode;
   $("#refField").hidden = !signupMode;
+  $("#payPinField").hidden = !signupMode;
   $("#authSubtitle").textContent = signupMode ? "Create your account" : "Sign in to continue";
   $("#emailSubmit").innerHTML = signupMode ? "Sign Up" : "Login";
   $("#switchText").textContent = signupMode ? "Already have an account?" : "New here?";
@@ -279,8 +269,13 @@ refInput.addEventListener("input", syncRef);
 $("#emailForm").addEventListener("submit", e => {
   e.preventDefault();
   const email = $("#email").value.trim(), pass = $("#password").value;
-  if (signupMode && !syncRef()) return setAuthMsg("Referral code is required to create an account");
-  run(() => signupMode ? fb.signUpEmail(email, pass, $("#regName").value.trim()) : fb.signInEmail(email, pass, $("#remember").checked), $("#emailSubmit"));
+  if (signupMode) {
+    if (!syncRef()) return setAuthMsg("Referral code is required to create an account");
+    const pin = $("#regPayPin").value.trim();
+    if (!/^\d{4,6}$/.test(pin)) return setAuthMsg("Payment password must be 4–6 digits");
+    return run(() => fb.signUpEmail(email, pass, $("#regName").value.trim(), pin), $("#emailSubmit"));
+  }
+  run(() => fb.signInEmail(email, pass, $("#remember").checked), $("#emailSubmit"));
 });
 $("#forgotLink").addEventListener("click", e => {
   e.preventDefault();
@@ -288,25 +283,6 @@ $("#forgotLink").addEventListener("click", e => {
   if (!email) return setAuthMsg("Enter your email first");
   run(async () => { await fb.resetPassword(email); showToast("Password reset email sent"); });
 });
-let codeSent = false;
-$("#phoneForm").addEventListener("submit", e => {
-  e.preventDefault();
-  const btn = $("#phoneSubmit");
-  run(async () => {
-    syncRef();
-    if (!codeSent) {
-      const phone = $("#phone").value.replace(/\s+/g, "");
-      if (!/^\+\d{8,15}$/.test(phone)) throw { code: "auth/invalid-phone-number" };
-      await fb.phoneSend(phone); codeSent = true;
-      $("#codeField").classList.remove("hidden"); btn.innerHTML = "Verify"; showToast("Code sent");
-    } else {
-      const code = $("#otp").value.trim();
-      if (code.length < 6) throw { message: "Enter the 6-digit code" };
-      await fb.phoneVerify(code); codeSent = false;
-    }
-  }, btn);
-});
-$("#googleBtn").addEventListener("click", () => run(() => { syncRef(); return fb.google(); }));
 
 // ---------- User state ----------
 function renderAuth() {
@@ -329,7 +305,7 @@ function renderAuth() {
   $$("[data-kyc-notice]").forEach(el => el.classList.toggle("hidden", isVerified()));
   const v = { balance: n2(p.balance), frozen: n2(p.frozen), total: n2((p.balance || 0) + (p.frozen || 0)), totalRevenue: n2(p.totalRevenue), inviteRevenue: n2(p.inviteRevenue), todayEarnings: n2(p.todayEarnings, 4), nftCount: p.nftCount || 0 };
   $$("[data-bind]").forEach(el => { if (el.dataset.bind in v) el.textContent = v[el.dataset.bind]; });
-  $("#topEarnings").textContent = `${v.todayEarnings} APT`;
+  $("#topEarnings").textContent = `${v.todayEarnings} USDT`;
   renderLevels();
   updateTaskProgress();
   if (user) { const un = effectiveUnlocked(); if (un > (Number(p.unlockedLevel) || 0)) fb.saveUser({ unlockedLevel: un }).catch(() => {}); }
@@ -339,7 +315,7 @@ function renderMinings(rows) {
   const el = $("#miningList"); if (!el) return;
   el.innerHTML = rows.length ? rows.map(m => {
     const done = m.status === "done", shares = Number(m.amount ?? m.price) || 0, gain = done ? (Number(m.gain) || 0) : shares * Number(m.rate) / 100;
-    return `<div class="req-row"><div><b>${escapeHtml(m.item)}</b><small>Level ${m.level} • ${n2(shares)} shares • ${escapeHtml(m.termLabel || (m.term + "h"))} • ${m.rate}%</small><small>${done ? `Credited ${n2(m.gain)} APT` : `Est. ${n2(gain)} APT • ends ${escapeHtml(when(m.maturedAt))}`}</small></div><span class="req-status ${done ? "approved" : "pending"}">${done ? "done" : "mining"}</span></div>`;
+    return `<div class="req-row"><div><b>${escapeHtml(m.item)}</b><small>Level ${m.level} • ${n2(shares)} shares • ${escapeHtml(m.termLabel || (m.term + "h"))} • ${m.rate}%</small><small>${done ? `Credited ${n2(m.gain)} USDT` : `Est. ${n2(gain)} USDT • ends ${escapeHtml(when(m.maturedAt))}`}</small></div><span class="req-status ${done ? "approved" : "pending"}">${done ? "done" : "mining"}</span></div>`;
   }).join("") : `<p class="empty">No shares yet. Buy shares from CHIP Level to start mining.</p>`;
 }
 const minePct = m => {
@@ -361,12 +337,18 @@ function renderMiningPage(rows) {
     const left = done ? "" : fmtDur(e - Date.now()) + " left";
     return `<div class="content-card mine-card">
       <div class="mine-head"><img src="${LV_IMG(m.img)}" alt="" loading="lazy"><div><b>${escapeHtml(m.item)}</b><small>Level ${m.level}${m.quality ? " • " + escapeHtml(m.quality) : ""} • ${escapeHtml(m.termLabel || (m.term + "h"))}</small></div><span class="req-status ${done ? "approved" : "pending"}">${done ? "done" : "mining"}</span></div>
-      <div class="mine-meta"><div><small>Shares</small><b>${n2(sh)} APT</b></div><div><small>Rate</small><b>${m.rate}%</b></div><div><small>${done ? "Credited" : "Est. profit"}</small><b>${n2(gain)} APT</b></div></div>
+      <div class="mine-meta"><div><small>Shares</small><b>${n2(sh)} USDT</b></div><div><small>Rate</small><b>${m.rate}%</b></div><div><small>${done ? "Credited" : "Est. profit"}</small><b>${n2(gain)} USDT</b></div></div>
       <div class="mine-bar-wrap"><div class="mine-bar" data-mine-bar data-start="${s}" data-end="${e}" data-done="${done ? 1 : 0}"><span style="width:${pct.toFixed(1)}%"></span></div><div class="mine-bar-info"><b data-mine-pct>${pct.toFixed(0)}%</b><small data-mine-time>${done ? "Completed" : "ends in " + escapeHtml(left.replace(" left", ""))}</small></div></div>
     </div>`;
   }).join("") : `<p class="empty">No shares yet. Buy shares from CHIP Level to start mining.</p>`;
 }
+const maturedPending = rows => rows.some(m => m.status === "mining" && (m.maturedAt?.toMillis?.() || Number(m.maturedAt) || 0) <= Date.now());
+function runClaim() {
+  if (!fb || !user || !maturedPending(mineRows)) return;
+  fb.claimMatured(mineRows).then(n => { if (n) showToast(`${n} chip${n > 1 ? "s" : ""} matured — commission added`); }).catch(() => {});
+}
 setInterval(() => {
+  runClaim();
   $$("[data-mine-bar]").forEach(bar => {
     const s = +bar.dataset.start, e = +bar.dataset.end, done = bar.dataset.done === "1";
     const pct = done ? 100 : (e > s ? Math.min(100, Math.max(0, (Date.now() - s) / (e - s) * 100)) : 0);
@@ -377,7 +359,7 @@ setInterval(() => {
   });
 }, 1000);
 
-const reqRows = (rows, label, key) => rows.length ? rows.slice(0, 10).map(r => `<div class="req-row"><div><b>${n2(r.amount ?? r.points)} ${r.points && !r.amount ? "pts" : "APT"}</b><small>${label}: ${escapeHtml(String(r[key] ?? r.title ?? "").slice(0, 28))} · ${escapeHtml(when(r.createdAt))}</small></div><span class="req-status ${escapeHtml(r.status)}">${escapeHtml(r.status)}</span></div>`).join("") : `<p class="empty">No requests yet.</p>`;
+const reqRows = (rows, label, key) => rows.length ? rows.slice(0, 10).map(r => `<div class="req-row"><div><b>${n2(r.amount ?? r.points)} ${r.points && !r.amount ? "pts" : "USDT"}</b><small>${label}: ${escapeHtml(String(r[key] ?? r.title ?? "").slice(0, 28))} · ${escapeHtml(when(r.createdAt))}</small></div><span class="req-status ${escapeHtml(r.status)}">${escapeHtml(r.status)}</span></div>`).join("") : `<p class="empty">No requests yet.</p>`;
 function renderTeam(rows) {
   $("#teamList").innerHTML = rows.length ? rows.map(r => `<div class="req-row"><div>${escapeHtml(r.name)}<small>Joined ${escapeHtml(when(r.createdAt))}</small></div></div>`).join("") : `<p class="empty">No friends yet. Share your referral link to invite people.</p>`;
   $$('[data-bind="friendCount"]').forEach(el => el.textContent = rows.length);
@@ -395,21 +377,21 @@ function onUser(u, p) {
       fb.watchMine("redemptions", rows => { othersA = rows; syncOthers(); }),
       fb.watchMine("levelRequests", rows => { othersB = rows; syncOthers(); }),
       fb.watchTeam(renderTeam),
-      fb.watchMinings(rows => { renderMinings(rows); renderMiningPage(rows); histData.profit = rows; if (histTab === "profit") renderHistory(); fb.claimMatured(rows).then(n => { if (n) showToast(`${n} chip${n > 1 ? "s" : ""} matured — commission added`); }).catch(() => {}); })
+      fb.watchMinings(rows => { mineRows = rows; renderMinings(rows); renderMiningPage(rows); histData.profit = rows; if (histTab === "profit") renderHistory(); runClaim(); })
     );
   } else { $("#withdrawList").innerHTML = reqRows([], ""); renderTeam([]); renderMinings([]); renderMiningPage([]); histData = { recharge: [], profit: [], withdraw: [], others: [] }; othersA = othersB = []; renderHistory(); }
 }
 import("./firebase.js").then(m => {
   fb = m; fb.init(onUser);
-  fb.watchSite(s => { site = { ...site, ...s }; $("#withdrawHint").textContent = `Withdrawals are reviewed before they are sent.${site.minWithdraw ? ` Minimum: ${site.minWithdraw} APT.` : ""}`; });
+  fb.watchSite(s => { site = { ...site, ...s }; $("#withdrawHint").textContent = `Withdrawals are reviewed before they are sent.${site.minWithdraw ? ` Minimum: ${site.minWithdraw} USDT.` : ""}`; });
 }).catch(e => { console.error(e); showToast("Login service could not load"); });
 
 // ---------- Actions (everything that used to say "coming soon") ----------
 const formRow = (label, id, attrs = "") => `<label class="form-label" for="${id}">${label}</label><input class="standard-input" id="${id}" ${attrs}>`;
 function openRecharge() {
   if (needVerified()) return;
-  const b = openSheet("Recharge", `<div class="withdraw-balance"><small>Send APT to this address</small><strong style="font-size:13px;word-break:break-all">${escapeHtml(site.depositAddress || "Not available yet")}</strong></div>
-    ${formRow("Amount sent (APT)", "depAmount", 'type="number" min="0" step="any" inputmode="decimal" placeholder="Enter amount"')}${formRow("Transaction ID (TXID)", "depTx", 'placeholder="Paste transaction ID"')}
+  const b = openSheet("Recharge", `<div class="withdraw-balance"><small>Send USDT to this address</small><strong style="font-size:13px;word-break:break-all">${escapeHtml(site.depositAddress || "Not available yet")}</strong></div>
+    ${formRow("Amount sent (USDT)", "depAmount", 'type="number" min="0" step="any" inputmode="decimal" placeholder="Enter amount"')}${formRow("Transaction ID (TXID)", "depTx", 'placeholder="Paste transaction ID"')}
     <button class="primary-btn full-btn" id="depSubmit">Submit Recharge Request</button><p class="form-hint">Your balance is updated after the transfer is verified.</p><h3>Recent Requests</h3><div id="depList" class="req-list"></div>`);
   sheetSubs.push(fb.watchMine("deposits", rows => { b.querySelector("#depList").innerHTML = reqRows(rows, "TXID", "txid"); }));
   $("#depSubmit").addEventListener("click", () => {
@@ -449,8 +431,9 @@ function openAddress() {
   });
 }
 function openLanguage() {
-  const cur = localStorage.getItem("cm_lang") === "bn" ? "bn" : "en";
-  openSheet("Language", `<div class="req-list"><button class="req-row lang-opt" data-lang="en">English ${cur === "en" ? "(selected)" : ""}</button><button class="req-row lang-opt" data-lang="bn">বাংলা ${cur === "bn" ? "(selected)" : ""}</button></div>`);
+  const cur = localStorage.getItem("cm_lang") || "en";
+  const opts = [["en", "English"], ["hi", "हिन्दी"], ["ne", "नेपाली"], ["ar", "العربية"], ["zh", "中文"]];
+  openSheet("Language", `<div class="req-list">${opts.map(([c, name]) => `<button class="req-row lang-opt" data-lang="${c}">${name} ${cur === c ? "(selected)" : ""}</button>`).join("")}</div>`);
   $$(".lang-opt").forEach(b => b.addEventListener("click", () => { localStorage.setItem("cm_lang", b.dataset.lang); applyLang(); closeSheet(); }));
 }
 async function shareReferral() {
@@ -502,26 +485,26 @@ function openLevelPage(id) {
   $("#levelEyebrow").textContent = `LEVEL ${lv.id} • ${lv.quality.toUpperCase()}`;
   $("#levelTitle").textContent = `Level ${lv.id}`;
   $("#levelBrief").innerHTML = `<div class="level-brief-row"><div><small>Quality</small><strong>${lv.quality}</strong></div><div><small>Duration</small><strong>${lv.term.label}</strong></div><div><small>Price range</small><strong>${levelRange(lv)}</strong></div></div><h3 class="term-title">Commission (mining)</h3><div class="term-list"><div><span>${lv.term.label}</span><b>${rr[0]}–${rr[1]}%</b></div></div>`;
-  $("#levelItems").innerHTML = lv.items.map((it, i) => { const lock = it.fee && !isUnlockedItem(`${lv.id}:${i}`); return `<button type="button" class="level-item" data-item="${lv.id}:${i}"><img src="${LV_IMG(it.img)}" alt="${escapeHtml(it.name)}" loading="lazy"><b>${escapeHtml(it.name)}</b><small>${escapeHtml(it.company)}${lock ? ` • unlock ${it.fee} APT` : ""}</small><strong>${money(it.val)} APT</strong></button>`; }).join("");
+  $("#levelItems").innerHTML = lv.items.map((it, i) => { const lock = it.fee && !isUnlockedItem(`${lv.id}:${i}`); return `<button type="button" class="level-item" data-item="${lv.id}:${i}"><img src="${LV_IMG(it.img)}" alt="${escapeHtml(it.name)}" loading="lazy"><b>${escapeHtml(it.name)}</b><small>${escapeHtml(it.company)}${lock ? ` • unlock ${it.fee} USDT` : ""}</small><strong>${money(it.val)} USDT</strong></button>`; }).join("");
   goToPage("level");
 }
 function openItem(ref) {
   const [lid, idx] = ref.split(":").map(Number);
   const lv = LEVELS.find(l => l.id === lid); if (!lv) return;
   const it = lv.items[idx]; if (!it) return;
-  const itemId = `${lid}:${idx}`, r = itemRate(lv, it), term = lv.term, PRESETS = [10, 30, 50, 100, 200, 500], bal = Number(profile.balance) || 0;
+  const itemId = `${lid}:${idx}`, r = itemRate(lv, it), term = lv.term, bal = Number(profile.balance) || 0;
   const locked = !!it.fee && !isUnlockedItem(itemId);
   $("#itemTitle").textContent = it.name;
   $("#itemBody").innerHTML = `<div class="item-detail"><img class="item-img" src="${LV_IMG(it.img)}" alt="${escapeHtml(it.name)}" loading="lazy"><div class="item-info">
     <span class="eyebrow">LEVEL ${lv.id} • ${lv.quality.toUpperCase()}</span><h2>${escapeHtml(it.name)}</h2>
-    <div class="item-price"><small>Chip value</small><strong>${money(it.val)} <em>APT</em></strong></div>
+    <div class="item-price"><small>Chip value</small><strong>${money(it.val)} <em>USDT</em></strong></div>
     <dl class="item-meta"><div><dt>Company</dt><dd>${escapeHtml(it.company)}</dd></div><div><dt>Level</dt><dd>Level ${lv.id} — ${lv.quality}</dd></div><div><dt>Duration</dt><dd>${term.label}</dd></div><div><dt>Commission</dt><dd>${r[0]}–${r[1]}%</dd></div></dl>
-    ${locked ? `<p class="form-hint">This chip is locked. Pay a one-time <b>${it.fee} APT</b> unlock fee to make it buyable.</p>` : `<p class="form-hint">You buy shares of this chip with APT (1 APT = 1 share). Profit is paid automatically when the term ends.</p>`}
+    ${locked ? `<p class="form-hint">This chip is locked. Pay a one-time <b>${it.fee} USDT</b> unlock fee to make it buyable.</p>` : `<p class="form-hint">You buy shares of this chip with USDT (1 USDT = 1 share). Profit is paid automatically when the term ends.</p>`}
     <h3 class="term-title">Shares to buy</h3>
-    <div class="share-pick" id="sharePick">${PRESETS.map(v => `<button type="button" class="share-opt" data-share="${v}">${v}</button>`).join("")}<button type="button" class="share-opt" data-share="all">All</button></div>
-    <div class="buy-line"><div><small>Shares</small><b><span id="shareAmt">0.00</span> APT</b></div><div><small>Est. profit</small><b><span id="shareGain">0.00</span> APT</b></div></div>
+    <div class="share-pick" id="sharePick"><input class="share-input" id="shareInput" type="number" min="0" step="any" inputmode="decimal" placeholder="Enter shares"><button type="button" class="share-opt" id="shareAll">All</button></div>
+    <div class="buy-line"><div><small>Shares</small><b><span id="shareAmt">0.00</span> USDT</b></div><div><small>Est. profit</small><b><span id="shareGain">0.00</span> USDT</b></div></div>
     <button class="primary-btn full-btn" id="itemBuy" disabled>Buy Now</button>
-    <p class="form-hint">Balance: ${money(bal)} APT. APT is deducted now; profit is added automatically when the term ends.</p>
+    <p class="form-hint">Balance: ${money(bal)} USDT. USDT is deducted now; profit is added automatically when the term ends.</p>
   </div></div>`;
   goToPage("item");
   let amount = 0;
@@ -529,21 +512,25 @@ function openItem(ref) {
     $("#shareAmt").textContent = money(amount);
     $("#shareGain").textContent = amount ? `${n2(amount * r[0] / 100)}–${n2(amount * r[1] / 100)}` : "0.00";
     const btn = $("#itemBuy");
-    if (locked) { btn.textContent = `Unlock chip — ${it.fee} APT`; btn.disabled = bal < it.fee; }
+    if (locked) { btn.textContent = `Unlock chip — ${it.fee} USDT`; btn.disabled = bal < it.fee; }
     else { btn.textContent = "Buy Now"; btn.disabled = !(amount > 0); }
   };
-  $$("#sharePick .share-opt").forEach(o => o.addEventListener("click", () => {
-    amount = o.dataset.share === "all" ? bal : Number(o.dataset.share);
-    $$("#sharePick .share-opt").forEach(x => x.classList.remove("selected"));
-    if (amount > bal) { amount = 0; showToast(`Not enough balance — you have ${money(bal)} APT`); }
-    else o.classList.add("selected");
+  const shareInput = $("#shareInput"), shareAll = $("#shareAll");
+  shareInput.addEventListener("input", () => {
+    const v = Number(shareInput.value) || 0;
+    if (v > bal) { amount = bal; shareInput.value = bal; showToast(`Not enough balance — max ${money(bal)} USDT`); }
+    else amount = v;
     refresh();
-  }));
+  });
+  shareAll.addEventListener("click", () => {
+    if (!(bal > 0)) return showToast("No balance to buy shares");
+    amount = bal; shareInput.value = bal; refresh();
+  });
   refresh();
   $("#itemBuy").addEventListener("click", () => {
     if (needVerified()) return;
     if (locked) {
-      if (bal < it.fee) return showToast(`You need ${it.fee} APT to unlock this chip`);
+      if (bal < it.fee) return showToast(`You need ${it.fee} USDT to unlock this chip`);
       return run(async () => {
         await fb.unlockItem(itemId, it.fee);
         justUnlocked.add(itemId);
@@ -558,7 +545,7 @@ function openItem(ref) {
     const maturedAt = new Date(Date.now() + term.h * 3600 * 1000);
     run(async () => {
       await fb.buyChip({ item: it.name, company: it.company, img: it.img, level: lv.id, quality: lv.quality, amount: amt, chipValue: it.val, term: term.h, termLabel: term.label, rate, gain, maturedAt });
-      showToast(`Bought ${n2(amt)} shares — +${n2(gain)} APT in ${term.label}`);
+      showToast(`Bought ${n2(amt)} shares — +${n2(gain)} USDT in ${term.label}`);
       goToPage("levels");
     }, $("#itemBuy"));
   });
@@ -647,11 +634,11 @@ function openVerify() {
 const SPIN_COST = 5, SPIN_WINDOW_MS = 12 * 3600 * 1000, SPIN_PER_WINDOW = 5;
 // 8 segments. TRX/TON and 100 Points are intentionally ultra-rare; TRX/TON are paid out by admin, not auto-credited.
 const SPIN_PRIZES = [
-  { label: "0.0023 APT", type: "apt", amount: 0.0023, weight: 300, color: "#1f6b4a" },
+  { label: "0.0023 USDT", type: "apt", amount: 0.0023, weight: 300, color: "#1f6b4a" },
   { label: "9 Points", type: "points", amount: 9, weight: 300, color: "#0F1D16" },
   { label: "0.0009 TRX", type: "trx", amount: 0.0009, weight: 5, color: "#3a2f12" },
   { label: "25 Points", type: "points", amount: 25, weight: 250, color: "#1f6b4a" },
-  { label: "2 APT", type: "apt", amount: 2, weight: 130, color: "#0F1D16" },
+  { label: "2 USDT", type: "apt", amount: 2, weight: 130, color: "#0F1D16" },
   { label: "100 Points", type: "points", amount: 100, weight: 10, color: "#3a2f12" },
   { label: "0.000598 TON", type: "ton", amount: 0.000598, weight: 2, color: "#1f6b4a" },
   { label: "1 TRX", type: "trx", amount: 1, weight: 3, color: "#0F1D16" }
@@ -720,7 +707,7 @@ function updateWdSummary() {
   const amount = Number(wdAmount) || 0, m = WD_METHODS[wdMethod];
   const fee = amount * m.fee, net = amount - fee;
   el.innerHTML = amount > 0
-    ? `<div><small>Amount</small><b>${n2(amount)} APT</b></div><div><small>Fee (${(m.fee * 100).toFixed(2)}%)</small><b>−${n2(fee)} APT</b></div><div><small>You receive</small><b>${n2(net)} APT</b></div><p class="form-hint">Payout ${m.eta}.</p>`
+    ? `<div><small>Amount</small><b>${n2(amount)} USDT</b></div><div><small>Fee (${(m.fee * 100).toFixed(2)}%)</small><b>−${n2(fee)} USDT</b></div><div><small>You receive</small><b>${n2(net)} USDT</b></div><p class="form-hint">Payout ${m.eta}.</p>`
     : `<p class="form-hint">Select an amount above to continue.</p>`;
   if (btn) btn.disabled = !(amount > 0);
 }
@@ -739,7 +726,7 @@ $("#withdrawPreview").addEventListener("click", async () => {
   const amount = Number(wdAmount), address = $("#withdrawAddress").value.trim(), pin = $("#withdrawPin").value, m = WD_METHODS[wdMethod];
   if (!(amount > 0)) return showToast("Select an amount first");
   if (address.length < 20) return showToast("Enter a valid wallet address");
-  if (site.minWithdraw && amount < site.minWithdraw) return showToast(`Minimum withdrawal is ${site.minWithdraw} APT`);
+  if (site.minWithdraw && amount < site.minWithdraw) return showToast(`Minimum withdrawal is ${site.minWithdraw} USDT`);
   if (amount > wdAvail()) return showToast("Amount exceeds your withdrawable profit");
   if (!profile.payPinHash) { showToast("Set a payment password first"); return openPayPin(); }
   const pinHash = await sha(user.uid + pin);
@@ -749,7 +736,7 @@ $("#withdrawPreview").addEventListener("click", async () => {
     await fb.requestWithdraw({ amount, address, pinHash, method: wdMethod, feeRate: m.fee, fee, net, eta: m.eta, debit: Math.min(Number(profile.balance) || 0, amount) });
     $("#withdrawAddress").value = $("#withdrawPin").value = ""; wdAmount = 0;
     $$("#wdPresets .share-opt").forEach(x => x.classList.remove("selected")); updateWdSummary();
-    showToast(`Withdrawal submitted — ${n2(net)} APT ${m.eta}`);
+    showToast(`Withdrawal submitted — ${n2(net)} USDT ${m.eta}`);
   }, $("#withdrawPreview"));
 });
 
@@ -760,9 +747,9 @@ function renderHistory() {
   if (!rows.length) { el.innerHTML = `<p class="empty">No ${histTab} records yet.</p>`; return; }
   el.innerHTML = rows.slice(0, 60).map(r => {
     const status = escapeHtml(r.status || "pending");
-    if (histTab === "recharge") return `<div class="req-row"><div><b>+${n2(r.amount)} APT</b><small>Recharge${r.txid ? " • " + escapeHtml(String(r.txid).slice(0, 18)) : ""} · ${escapeHtml(when(r.createdAt))}</small></div><span class="req-status ${status}">${status}</span></div>`;
-    if (histTab === "profit") { const done = r.status === "done", gain = done ? (Number(r.gain) || 0) : (Number(r.amount ?? r.price) || 0) * Number(r.rate) / 100; return `<div class="req-row"><div><b>+${n2(gain)} APT</b><small>${escapeHtml(r.item || "Mining")}${r.termLabel || r.term ? " • " + escapeHtml(r.termLabel || r.term + "h") : ""} · ${escapeHtml(when(r.claimedAt || r.createdAt))}</small></div><span class="req-status ${done ? "approved" : "pending"}">${done ? "credited" : "mining"}</span></div>`; }
-    if (histTab === "withdraw") return `<div class="req-row"><div><b>−${n2(r.amount)} APT</b><small>${escapeHtml((WD_METHODS[r.method] || WD_METHODS.instant).label)}${r.net ? ` • receive ${n2(r.net)} APT` : ""} · ${escapeHtml(when(r.createdAt))}</small></div><span class="req-status ${status}">${status}</span></div>`;
+    if (histTab === "recharge") return `<div class="req-row"><div><b>+${n2(r.amount)} USDT</b><small>Recharge${r.txid ? " • " + escapeHtml(String(r.txid).slice(0, 18)) : ""} · ${escapeHtml(when(r.createdAt))}</small></div><span class="req-status ${status}">${status}</span></div>`;
+    if (histTab === "profit") { const done = r.status === "done", gain = done ? (Number(r.gain) || 0) : (Number(r.amount ?? r.price) || 0) * Number(r.rate) / 100; return `<div class="req-row"><div><b>+${n2(gain)} USDT</b><small>${escapeHtml(r.item || "Mining")}${r.termLabel || r.term ? " • " + escapeHtml(r.termLabel || r.term + "h") : ""} · ${escapeHtml(when(r.claimedAt || r.createdAt))}</small></div><span class="req-status ${done ? "approved" : "pending"}">${done ? "credited" : "mining"}</span></div>`; }
+    if (histTab === "withdraw") return `<div class="req-row"><div><b>−${n2(r.amount)} USDT</b><small>${escapeHtml((WD_METHODS[r.method] || WD_METHODS.instant).label)}${r.net ? ` • receive ${n2(r.net)} USDT` : ""} · ${escapeHtml(when(r.createdAt))}</small></div><span class="req-status ${status}">${status}</span></div>`;
     return `<div class="req-row"><div><b>${escapeHtml(r.title || r.item || r.docType || "Request")}</b><small>${r.points ? escapeHtml(r.points + " pts") : "—"} · ${escapeHtml(when(r.createdAt))}</small></div><span class="req-status ${status}">${status}</span></div>`;
   }).join("");
 }

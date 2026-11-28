@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0B0D0C">
-  <title>Chip Main — Chip Dashboard</title>
+  <title>Chip Mine — Chip Dashboard</title>
   <link rel="icon" type="image/jpeg" href="assets/logo.jpg">
   <link rel="apple-touch-icon" href="assets/logo.jpg">
   <link rel="stylesheet" href="style.css">
@@ -13,36 +13,28 @@
   <div id="loginView" class="login-screen hidden">
     <button class="theme-toggle" id="closeLogin" aria-label="Close" style="width:auto;padding:0 16px;font-size:14px;font-weight:700">Close</button>
     <div class="login-card">
-      <div class="brand-mark"><img src="assets/logo.jpg" alt="Chip Main"></div>
+      <div class="brand-mark"><img src="assets/logo.jpg" alt="Chip Mine"></div>
       <p class="eyebrow">WELCOME TO</p>
-      <h1>Chip Main</h1>
+      <h1>Chip Mine</h1>
       <p class="login-subtitle" id="authSubtitle">Sign in to continue</p>
       <p id="authMsg" class="auth-msg"></p>
-      <div class="auth-tabs"><button type="button" class="auth-tab active" data-auth="email">Email</button><button type="button" class="auth-tab" data-auth="phone">Phone</button></div>
-      <label class="field" id="refField" hidden><input id="refCode" placeholder="Referral code (required to sign up)" maxlength="12" autocapitalize="characters" autocomplete="off"></label>
       <form id="emailForm">
         <label class="field" id="nameField" hidden><input id="regName" placeholder="Your name" autocomplete="name" maxlength="40"></label>
         <label class="field"><input id="email" type="email" placeholder="Email" autocomplete="email" required></label>
         <label class="field"><input id="password" type="password" placeholder="Password" autocomplete="current-password" minlength="6" required><button type="button" class="show-pass" id="showPass">Show</button></label>
+        <label class="field" id="refField" hidden><input id="refCode" placeholder="Referral code (required to sign up)" maxlength="12" autocapitalize="characters" autocomplete="off"></label>
+        <label class="field" id="payPinField" hidden><input id="regPayPin" type="password" inputmode="numeric" maxlength="6" placeholder="Payment password (4-6 digits)" autocomplete="off"></label>
         <div class="login-options"><label><input type="checkbox" id="remember" checked> Remember Me</label><a href="#" id="forgotLink">Forgot Password?</a></div>
         <button class="login-submit" type="submit" id="emailSubmit">Login</button>
         <p class="auth-switch"><span id="switchText">New here?</span> <a href="#" id="switchMode">Create account</a></p>
       </form>
-      <form id="phoneForm" class="hidden">
-        <label class="field"><input id="phone" type="tel" placeholder="+8801XXXXXXXXX" autocomplete="tel" required></label>
-        <label class="field hidden" id="codeField"><input id="otp" inputmode="numeric" maxlength="6" placeholder="6-digit code" autocomplete="one-time-code"></label>
-        <button class="login-submit" type="submit" id="phoneSubmit">Send Code</button>
-      </form>
-      <div id="recaptcha"></div>
-      <div class="or-line"><span>OR CONTINUE WITH</span></div>
-      <div class="social-login"><button type="button" id="googleBtn" aria-label="Continue with Google" style="width:auto;padding:0 22px">G &nbsp;Google</button></div>
       <p class="login-footer">CHIPS • COMPANIES • TECH NEWS</p>
     </div>
   </div>
 
   <div id="app" class="app-shell">
     <aside class="sidebar">
-      <a class="side-brand" href="#" data-page="home"><span class="brand-icon"><img src="assets/logo.jpg" alt=""></span><span data-edit="brand">Chip Main</span></a>
+      <a class="side-brand" href="#" data-page="home"><span class="brand-icon"><img src="assets/logo.jpg" alt=""></span><span data-edit="brand">Chip Mine</span></a>
       <div class="side-user"><div class="avatar">A</div><div><b>Welcome back</b><small id="sideUser">Member</small></div></div>
       <nav class="side-nav">
         <button class="nav-link active" data-page="home">Home</button>
@@ -56,8 +48,8 @@
 
     <main class="main-area">
       <header class="topbar">
-        <div class="mobile-brand"><span class="brand-icon"><img src="assets/logo.jpg" alt=""></span><b data-edit="brand">Chip Main</b></div>
-        <div class="top-earning">Today's Earnings <strong id="topEarnings">0.0000 APT</strong></div>
+        <div class="mobile-brand"><span class="brand-icon"><img src="assets/logo.jpg" alt=""></span><b data-edit="brand">Chip Mine</b></div>
+        <div class="top-earning">Today's Earnings <strong id="topEarnings">0.0000 USDT</strong></div>
         <div class="top-actions"><button class="outline-btn" id="topLogin">Login</button><button class="outline-btn hidden" id="topLogout">Logout</button><button class="icon-btn" id="topProfile" title="Profile">Me</button></div>
       </header>
 
@@ -69,9 +61,9 @@
 
         <div class="stats-grid">
           <article class="stat-card"><div><small>Covered Countries</small><strong data-edit="countries">0</strong></div></article>
-          <article class="stat-card"><div><small>Extracted Earnings</small><strong>0.00 <small>APT</small></strong></div></article>
+          <article class="stat-card"><div><small>Extracted Earnings</small><strong>0.00 <small>USDT</small></strong></div></article>
           <article class="stat-card"><div><small>Registered Users</small><strong data-edit="registered">0</strong></div></article>
-          <article class="stat-card"><div><small>Commission Issued</small><strong>0.00 <small>APT</small></strong></div></article>
+          <article class="stat-card"><div><small>Commission Issued</small><strong>0.00 <small>USDT</small></strong></div></article>
         </div>
 
         <div class="quick-actions">
@@ -88,18 +80,24 @@
         </div>
 
         <section class="content-card feature-section"><div class="section-heading"><div><span class="eyebrow">PLATFORM BENEFITS</span><h2>Explore the World of CHIPs</h2></div></div><div class="feature-grid"><div class="feature-item"><div><h3>Reliable Security</h3><p>Use trusted security practices and protect your digital assets with care.</p></div></div><div class="feature-item"><div><h3>24×7 Customer Support</h3><p>Support information and help resources can be customized for your platform.</p></div></div><div class="feature-item"><div><h3>Digital Collectibles</h3><p>Showcase unique artwork and collections in a clean, responsive layout.</p></div></div></div></section>
+        <div class="content-card partner-card"><div class="section-heading"><div><span class="eyebrow">TRUSTED BY</span><h2>Brand Partners</h2></div></div>
+          <div class="logo-marquee"><div class="logo-track">
+            <img src="assets/logos/brand-1.jpg" alt="" loading="lazy"><img src="assets/logos/brand-2.jpg" alt="" loading="lazy"><img src="assets/logos/brand-3.jpg" alt="" loading="lazy"><img src="assets/logos/brand-4.jpg" alt="" loading="lazy"><img src="assets/logos/brand-5.jpg" alt="" loading="lazy"><img src="assets/logos/brand-6.jpg" alt="" loading="lazy"><img src="assets/logos/brand-7.jpg" alt="" loading="lazy"><img src="assets/logos/brand-8.jpg" alt="" loading="lazy"><img src="assets/logos/brand-9.jpg" alt="" loading="lazy">
+            <img src="assets/logos/brand-1.jpg" alt="" loading="lazy" aria-hidden="true"><img src="assets/logos/brand-2.jpg" alt="" loading="lazy" aria-hidden="true"><img src="assets/logos/brand-3.jpg" alt="" loading="lazy" aria-hidden="true"><img src="assets/logos/brand-4.jpg" alt="" loading="lazy" aria-hidden="true"><img src="assets/logos/brand-5.jpg" alt="" loading="lazy" aria-hidden="true"><img src="assets/logos/brand-6.jpg" alt="" loading="lazy" aria-hidden="true"><img src="assets/logos/brand-7.jpg" alt="" loading="lazy" aria-hidden="true"><img src="assets/logos/brand-8.jpg" alt="" loading="lazy" aria-hidden="true"><img src="assets/logos/brand-9.jpg" alt="" loading="lazy" aria-hidden="true">
+          </div></div>
+        </div>
         <div class="partner-strip"><span>BITPAY</span><span>CYBAVO</span><span>GNOSIS SAFE</span><span>KEYRING PRO</span><span>LEDGER</span><span>MATH WALLET</span><span>METAMASK</span><span>SafePal</span><span>WalletConnect</span><span>OpenSea</span></div>
       </section>
 
       <section class="page" id="page-levels">
         <div class="page-title"><div><span class="eyebrow">COLLECT • UPGRADE • EXPLORE</span><h1>CHIP Level</h1></div><button class="outline-btn" id="copyAccount">Copy Account ID</button></div>
-        <div class="balance-row"><div><small>Account Total</small><strong data-bind="total">0.00</strong><em>APT</em></div><div><small>Frozen Amount</small><strong data-bind="frozen">0.00</strong><em>APT</em></div><div><small>Today's Earnings</small><strong data-bind="todayEarnings">0.0000</strong><em>APT</em></div></div>
+        <div class="balance-row"><div><small>Account Total</small><strong data-bind="total">0.00</strong><em>USDT</em></div><div><small>Frozen Amount</small><strong data-bind="frozen">0.00</strong><em>USDT</em></div><div><small>Today's Earnings</small><strong data-bind="todayEarnings">0.0000</strong><em>USDT</em></div></div>
         <div class="level-list" id="levelList">
-          <article class="level-card"><div class="level-info"><h2>Level 1</h2><p>Normal • 30.00 – 499.99 APT</p><a href="#" data-level="1">Click to enter</a></div></article>
-          <article class="level-card"><div class="level-info"><h2>Level 2</h2><p>Rare • 500.00 – 4,999.99 APT</p><a href="#" data-level="2">Click to enter</a></div></article>
-          <article class="level-card"><div class="level-info"><h2>Level 3</h2><p>Epic • 5,000.00 – 49,999.99 APT</p><a href="#" data-level="3">Click to enter</a></div></article>
-          <article class="level-card"><div class="level-info"><h2>Level 4</h2><p>Mythic • 50,000.00 – 499,999.99 APT</p><a href="#" data-level="4">Click to enter</a></div></article>
-          <article class="level-card"><div class="level-info"><h2>Level 5</h2><p>Legend • 500,000.00 – 99,999,999.99 APT</p><a href="#" data-level="5">Click to enter</a></div></article>
+          <article class="level-card"><div class="level-info"><h2>Level 1</h2><p>Normal • 30.00 – 499.99 USDT</p><a href="#" data-level="1">Click to enter</a></div></article>
+          <article class="level-card"><div class="level-info"><h2>Level 2</h2><p>Rare • 500.00 – 4,999.99 USDT</p><a href="#" data-level="2">Click to enter</a></div></article>
+          <article class="level-card"><div class="level-info"><h2>Level 3</h2><p>Epic • 5,000.00 – 49,999.99 USDT</p><a href="#" data-level="3">Click to enter</a></div></article>
+          <article class="level-card"><div class="level-info"><h2>Level 4</h2><p>Mythic • 50,000.00 – 499,999.99 USDT</p><a href="#" data-level="4">Click to enter</a></div></article>
+          <article class="level-card"><div class="level-info"><h2>Level 5</h2><p>Legend • 500,000.00 – 99,999,999.99 USDT</p><a href="#" data-level="5">Click to enter</a></div></article>
         </div>
       </section>
 
@@ -135,13 +133,13 @@
         <div class="page-title"><div><span class="eyebrow">ACCOUNT ACTION</span><h1>Withdraw</h1></div></div>
         <p class="kyc-notice hidden" data-kyc-notice>Identity verification is required to recharge, withdraw, trade and use referrals. <a href="#" data-action="Verify">Verify now</a></p>
         <div class="content-card withdraw-card">
-          <div class="withdraw-balance"><small>Withdrawable (profit)</small><strong><span data-bind="withdrawable">0.00</span> <em>APT</em></strong></div>
+          <div class="withdraw-balance"><small>Withdrawable (profit)</small><strong><span data-bind="withdrawable">0.00</span> <em>USDT</em></strong></div>
           <div class="balance-row" style="margin:14px 0 4px">
-            <div><small>Recharge Amount</small><strong data-bind="recharge">0.00</strong><em>APT</em></div>
-            <div><small>Withdraw Amount</small><strong data-bind="withdrawn">0.00</strong><em>APT</em></div>
-            <div><small>Total Balance</small><strong data-bind="balance">0.00</strong><em>APT</em></div>
+            <div><small>Recharge Amount</small><strong data-bind="recharge">0.00</strong><em>USDT</em></div>
+            <div><small>Withdraw Amount</small><strong data-bind="withdrawn">0.00</strong><em>USDT</em></div>
+            <div><small>Total Balance</small><strong data-bind="balance">0.00</strong><em>USDT</em></div>
           </div>
-          <label class="form-label">Amount (APT)</label>
+          <label class="form-label">Amount (USDT)</label>
           <div class="share-pick" id="wdPresets">
             <button type="button" class="share-opt" data-wd="10">10</button>
             <button type="button" class="share-opt" data-wd="30">30</button>
@@ -170,21 +168,31 @@
         <div class="page-title"><div><span class="eyebrow">COMMUNITY</span><h1>Friends</h1></div></div>
         <p class="kyc-notice hidden" data-kyc-notice>Identity verification is required to recharge, withdraw, trade and use referrals. <a href="#" data-action="Verify">Verify now</a></p>
         <div class="content-card referral-card"><h2>Invite your friends</h2><p>Share your referral code and keep your community connected.</p><div class="referral-code"><strong id="referralCode">—</strong><button id="copyReferral">Copy</button></div></div>
-        <div class="stats-grid friends-stats"><article class="stat-card"><div><small>Total Friends</small><strong data-bind="friendCount">0</strong></div></article><article class="stat-card"><div><small>Team Revenue</small><strong><span data-bind="inviteRevenue">0.00</span> <small>APT</small></strong></div></article></div>
+        <div class="stats-grid friends-stats"><article class="stat-card"><div><small>Total Friends</small><strong data-bind="friendCount">0</strong></div></article><article class="stat-card"><div><small>Team Revenue</small><strong><span data-bind="inviteRevenue">0.00</span> <small>USDT</small></strong></div></article></div>
         <div class="content-card"><h2>My Team</h2><div id="teamList" class="req-list"></div></div>
       </section>
 
       <section class="page" id="page-profile">
         <div class="page-title"><div><span class="eyebrow">ACCOUNT CENTER</span><h1>My Profile</h1></div><button class="outline-btn" data-action="Edit Profile">Edit Profile</button></div>
-        <div class="profile-banner"><div class="profile-avatar">A</div><div><h2 id="profileName">Chip Main</h2><p>Member ID: <b id="accountId">—</b> <button class="copy-mini" id="copyId">Copy</button></p><span class="member-tag" id="memberTag">UNVERIFIED</span></div></div>
-        <div class="profile-balance"><div><small>Total Funds</small><strong><span data-bind="total">0.00</span> <em>APT</em></strong></div><div><small>Available Amount</small><strong><span data-bind="withdrawable">0.00</span> <em>APT</em></strong></div><div><small>Frozen Amount</small><strong><span data-bind="frozen">0.00</span> <em>APT</em></strong></div></div>
-        <div class="revenue-grid"><div class="revenue-card pink"><small>Total Revenue</small><strong><span data-bind="totalRevenue">0.00</span> APT</strong></div><div class="revenue-card blue"><small>Invitation Revenue</small><strong><span data-bind="inviteRevenue">0.00</span> APT</strong></div><div class="revenue-card violet"><small>Today's Earnings</small><strong><span data-bind="todayEarnings">0.0000</span> APT</strong></div><div class="revenue-card teal"><small>CHIPs are continuously earning</small><strong>0 CHIPs</strong></div></div>
+        <div class="profile-banner"><div class="profile-avatar">A</div><div><h2 id="profileName">Chip Mine</h2><p>Member ID: <b id="accountId">—</b> <button class="copy-mini" id="copyId">Copy</button></p><span class="member-tag" id="memberTag">UNVERIFIED</span></div></div>
+        <div class="profile-balance"><div><small>Total Funds</small><strong><span data-bind="total">0.00</span> <em>USDT</em></strong></div><div><small>Available Amount</small><strong><span data-bind="withdrawable">0.00</span> <em>USDT</em></strong></div><div><small>Frozen Amount</small><strong><span data-bind="frozen">0.00</span> <em>USDT</em></strong></div></div>
+        <div class="revenue-grid"><div class="revenue-card pink"><small>Total Revenue</small><strong><span data-bind="totalRevenue">0.00</span> USDT</strong></div><div class="revenue-card blue"><small>Invitation Revenue</small><strong><span data-bind="inviteRevenue">0.00</span> USDT</strong></div><div class="revenue-card violet"><small>Today's Earnings</small><strong><span data-bind="todayEarnings">0.0000</span> USDT</strong></div><div class="revenue-card teal"><small>CHIPs are continuously earning</small><strong>0 CHIPs</strong></div></div>
         <div class="profile-menu">
           <button data-action="Verify" id="verifyBtn">Verify Identity <small class="vtag none" id="verifyTag">Not verified</small></button>
           <button id="loginBtn">Login / Sign Up</button>
-          <button id="logoutBtn" class="hidden">Log Out</button>
           <button data-action="History">History</button>
-          <button data-action="Spin the Wheel">Spin the Wheel</button><button data-action="Sign In Task">Sign In Task</button><button data-action="Points Mall">Points Mall</button><button data-action="Announcement">Announcement</button><button data-action="Shipping Address">Shipping Address</button><button data-action="Language">Language</button><button data-action="Recommend & Share">Recommend & Share</button><button data-action="Team">Team</button><button data-action="Message">Message</button><button data-action="Change Password">Change Password</button><button data-action="Change Payment Password">Change Payment Password</button>
+          <button data-action="Spin the Wheel">Spin the Wheel</button>
+          <button data-action="Sign In Task">Sign In Task</button>
+          <button data-action="Points Mall">Points Mall</button>
+          <button data-action="Announcement">Announcement</button>
+          <button data-action="Shipping Address">Shipping Address</button>
+          <button data-action="Language">Language</button>
+          <button data-action="Recommend & Share">Recommend & Share</button>
+          <button data-action="Team">Team</button>
+          <button data-action="Message">Message</button>
+          <button data-action="Change Password">Change Password</button>
+          <button data-action="Change Payment Password">Change Payment Password</button>
+          <button id="logoutBtn" class="hidden">Log Out</button>
         </div>
       </section>
       <section class="page" id="page-chip">
@@ -193,7 +201,7 @@
       </section>
       <section class="page" id="page-mining">
         <div class="page-title"><div><span class="eyebrow">SHARES • MINING • PROGRESS</span><h1>My Mining</h1></div><button class="outline-btn" data-go="levels">Buy shares</button></div>
-        <div class="mine-stats stats-grid"><article class="stat-card"><div><small>Active</small><strong id="mineActive">0</strong></div></article><article class="stat-card"><div><small>Total Shares</small><strong id="mineShares">0.00</strong></div></article><article class="stat-card"><div><small>Total Profit</small><strong><span id="mineProfit">0.00</span> <small>APT</small></strong></div></article></div>
+        <div class="mine-stats stats-grid"><article class="stat-card"><div><small>Active</small><strong id="mineActive">0</strong></div></article><article class="stat-card"><div><small>Total Shares</small><strong id="mineShares">0.00</strong></div></article><article class="stat-card"><div><small>Total Profit</small><strong><span id="mineProfit">0.00</span> <small>USDT</small></strong></div></article></div>
         <div id="miningPageList" class="req-list"></div>
       </section>
       <section class="page" id="page-history">
@@ -206,7 +214,7 @@
         </div>
         <div class="content-card" style="border-radius:0 0 14px 14px"><div id="historyList" class="req-list"></div></div>
       </section>
-      <footer class="site-footer">© <span id="year"></span> <span data-edit="brand">Chip Main</span>. All rights reserved.</footer>
+      <footer class="site-footer">© <span id="year"></span> <span data-edit="brand">Chip Mine</span>. All rights reserved.</footer>
     </main>
   </div>
 

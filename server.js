@@ -56,7 +56,7 @@ const certFile = path.join(ROOT, "cert.pem");
 const hasCert = fs.existsSync(keyFile) && fs.existsSync(certFile);
 
 function log(proto) {
-  console.log(`Chip Main running:  ${proto}://localhost:${PORT}/`);
+  console.log(`Chip Mine running:  ${proto}://localhost:${PORT}/`);
   console.log(`Admin panel:        ${proto}://localhost:${PORT}/admin/`);
   console.log(`Serving: ${ROOT}`);
   console.log(`Note: the KYC camera works over HTTPS or on localhost (a secure context).`);

@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, signInWithRedirect, GoogleAuthProvider, signInWithPhoneNumber, RecaptchaVerifier, signOut, sendPasswordResetEmail, setPersistence, browserLocalPersistence, browserSessionPersistence, updateProfile } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, sendPasswordResetEmail, setPersistence, browserLocalPersistence, browserSessionPersistence, updateProfile } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc, updateDoc, addDoc, collection, query, where, onSnapshot, writeBatch, serverTimestamp, increment, arrayUnion } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -11,7 +11,8 @@ const firebaseConfig = {
   appId: "1:407318397626:web:8fd760fd806358819b7883"
 };
 const app = initializeApp(firebaseConfig), auth = getAuth(app), db = getFirestore(app);
-let recaptcha = null, confirmation = null, pendingName = "";
+const sha = async s => [...new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)))].map(b => b.toString(16).padStart(2, "0")).join("");
+let pendingName = "", pendingPayPin = "";
 const uid = () => auth.currentUser.uid;
 const sortNew = rows => rows.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
 const err = e => console.error(e.code || "", e.message || e);
@@ -37,9 +38,10 @@ async function ensureUser(user) {
   if (ref) { try { const r = await getDoc(doc(db, "referralCodes", ref)); if (r.exists() && r.data().uid !== user.uid) referrerUid = r.data().uid; } catch {} }
   if (!referrerUid) throw { code: "app/ref-required", message: "A valid referral code is required to create an account" };
   const name = (pendingName || user.displayName || user.email?.split("@")[0] || "Member").slice(0, 40);
+  const payPinHash = pendingPayPin ? await sha(user.uid + pendingPayPin) : null; pendingPayPin = "";
   for (let i = 0; i < 5; i++) {
     const memberId = String(Math.floor(1000000 + Math.random() * 9000000)), myCode = genCode(), b = writeBatch(db);
-    b.set(doc(db, "users", user.uid), { name, email: user.email || null, phone: user.phoneNumber || null, memberId, referralCode: myCode, referredBy: referrerUid, balance: 0, frozen: 0, points: 0, totalRevenue: 0, inviteRevenue: 0, todayEarnings: 0, nftCount: 0, createdAt: serverTimestamp() });
+    b.set(doc(db, "users", user.uid), { name, email: user.email || null, phone: user.phoneNumber || null, memberId, referralCode: myCode, referredBy: referrerUid, balance: 0, frozen: 0, points: 0, totalRevenue: 0, inviteRevenue: 0, todayEarnings: 0, nftCount: 0, payPinHash, createdAt: serverTimestamp() });
     b.set(doc(db, "referralCodes", myCode), { uid: user.uid });
     try { await b.commit(); if (referrerUid) { try { await setDoc(doc(db, "referrals", user.uid), { referrerUid, name, code: myCode, createdAt: serverTimestamp() }); } catch {} } return; } catch (e) { if (i === 4 || e.code !== "permission-denied") throw e; }
   }
@@ -57,25 +59,13 @@ export function init(onUser) {
 }
 
 export const signInEmail = async (email, pass, remember) => { await setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence); return signInWithEmailAndPassword(auth, email, pass); };
-export const signUpEmail = async (email, pass, name) => {
-  await setPersistence(auth, browserLocalPersistence); pendingName = name || "";
+export const signUpEmail = async (email, pass, name, payPin) => {
+  await setPersistence(auth, browserLocalPersistence); pendingName = name || ""; pendingPayPin = payPin || "";
   const c = await createUserWithEmailAndPassword(auth, email, pass);
   if (name) await updateProfile(c.user, { displayName: name });
   return c;
 };
 export const resetPassword = email => sendPasswordResetEmail(auth, email);
-export async function google() {
-  await setPersistence(auth, browserLocalPersistence);
-  const p = new GoogleAuthProvider();
-  try { return await signInWithPopup(auth, p); }
-  catch (e) { if (e.code === "auth/popup-blocked" || e.code === "auth/web-storage-unsupported") return signInWithRedirect(auth, p); throw e; }
-}
-export async function phoneSend(phone) {
-  recaptcha ||= new RecaptchaVerifier(auth, "recaptcha", { size: "invisible" });
-  try { confirmation = await signInWithPhoneNumber(auth, phone, recaptcha); }
-  catch (e) { try { recaptcha.clear(); } catch {} recaptcha = null; throw e; }
-}
-export async function phoneVerify(code) { if (!confirmation) throw { code: "auth/code-expired" }; await confirmation.confirm(code); confirmation = null; }
 export const logout = () => signOut(auth);
 
 export const updateName = async name => { await updateProfile(auth.currentUser, { displayName: name }); await updateDoc(doc(db, "users", uid()), { name }); };
